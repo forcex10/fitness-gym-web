@@ -11,7 +11,7 @@ if (
     isset($_POST['phone']) &&
     isset($_POST['password']) &&
     isset($_POST['userType'])
-) {
+) { 
     if ($_POST['userType'] == "employe") {
         if (isset($_POST["diplome"])) {
             $client = new User(
@@ -64,8 +64,7 @@ if (
             echo '<div style="color: green; font-weight: bold;">compte ajoute avec succes.</div>';
     }
 }
-else
-    echo '<div style="color: red; font-weight: bold;">variable non definie.</div>';
+
 ?>
 
 
