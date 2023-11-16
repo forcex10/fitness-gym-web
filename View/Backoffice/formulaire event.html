@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription à l'événement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 50%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Inscription à l'événement</h2>
+
+<form id="inscriptionForm" onsubmit="return validateForm()">
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" required>
+
+    <label for="prenom">Prénom :</label>
+    <input type="text" id="prenom" name="prenom" required>
+
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="telephone">Téléphone :</label>
+    <input type="tel" id="telephone" name="telephone" required>
+
+    <label for="events">Événements :</label>
+     <select id="events" name="events">
+        <option value="BOX ">Événement de BOX </option>
+        <option value="Natation">Événement de Natation</option>
+    </select>
+
+    <br>
+    <br>
+    <button type="submit">S'inscrire</button>
+</form>
+
+<script>
+    function validateForm() {
+        var nom = document.getElementById('nom').value;
+        var prenom = document.getElementById('prenom').value;
+        var email = document.getElementById('email').value;
+        var telephone = document.getElementById('telephone').value;
+
+        var nomRegex = /^[a-zA-Z\s]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var telephoneRegex = /^\d{8}$/;
+
+        if (!nomRegex.test(nom)) {
+            alert("Veuillez entrer un nom valide");
+            return false;
+        }
+
+        if (!nomRegex.test(prenom)) {
+            alert("Veuillez entrer un prénom valide");
+            return false;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Veuillez entrer une adresse email valide");
+            return false;
+        }
+
+        if (!telephoneRegex.test(telephone)) {
+            alert("Veuillez entrer un numéro de téléphone valide (8 chiffres)");
+            return false;
+        }
+
+        alert("Inscription réussie !");
+        return true;
+    }
+</script>
+
+</body>
+</html>
