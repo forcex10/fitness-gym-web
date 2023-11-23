@@ -35,7 +35,7 @@ class EventC
     function addEvent($event)
     {
         $sql = "INSERT INTO evennement 
-        VALUES (NULL, :nom,:local, :date)";
+        VALUES (NULL, :nom, :local, :date, :temps, :description, :type_event)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -43,9 +43,49 @@ class EventC
                 'nom' => $event->getNom(),
                 'local' => $event->getLocalisation(),
                 'date' => $event->getDate(),
+                'temps' => $event->getTemps(),
+                'description' => $event->getDescription(),
+                'type_event' => $event->getType_event(),  // Add this line
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    function updateEvent($event, $idevent)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE evennement SET 
+                    nom = :nom,
+                    local = :local,
+                    date = :date,
+                    temps = :temps,
+                    description = :description,
+                    type_event = :type_event  
+                WHERE idevent = :idevent'
+            );
+
+            $result =$query->execute([
+                'idevent' => $idevent,
+                'nom' => $event->getNom(),
+                'local' => $event->getLocalisation(),
+                'date' => $event->getDate(),
+                'temps' => $event->getTemps(),
+                'description' => $event->getDescription(),
+                'type_event' => $event->getType_event(),  // Add this line
+            ]);
+            if($result){
+                $db->commit();
+            }else{
+                $db->rollBack();
+            }
+            return $result; 
+
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
         }
     }
 
@@ -63,7 +103,7 @@ class EventC
         }
     }
     
-    function updateEvent($event, $idevent)
+    /*function updateEvent($event, $idevent)
     {
         try {
             $db = config::getConnexion();
@@ -71,15 +111,21 @@ class EventC
                 'UPDATE evennement SET 
                     nom = :nom,
                     local = :local,
-                    date = :date 
-                WHERE idevent= :id'
-            );
+                    date = :date,
+                    temps = :temps,
+                    description = :description
+                WHERE idevent= :idevent'
+            ); //,type_event = :type_event
 
             $query->execute([
-                'id' => $idevent,
+                'idevent' => $idevent,
                 'nom' => $event->getNom(),
                 'local' => $event->getLocalisation(),
-                'date' => $event->getDate()
+                'date' => $event->getDate(),
+                'temps' => $event->getTemps(),
+                'description' => $event->getDescription(),
+                
+                //,'type_event'=>$event->getType_event()
 
             ]);
 
@@ -87,6 +133,6 @@ class EventC
         } catch (PDOException $e) {
             $e->getMessage();
         }
-    }
+    }*/
     
 }

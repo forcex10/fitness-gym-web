@@ -1,16 +1,16 @@
 <?php
 // Inclure le fichier du contrôleur
 include ('../../Controller/EventC.php');
-
+include ('../../Controller/Type_eventC.php');
 // Créer une instance du contrôleur
 $eventController = new EventC();
 $events = $eventController->listeEvent();
+$type_eventC = new Type_eventC();
 
 ?>
 
-
 <html>
-    <head>
+<head>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,39 +63,52 @@ $events = $eventController->listeEvent();
 <body>
     <h1>Liste des evennements</h1>
     <h2>
-        <a href="addEvent.php"target="_blank">ajouter Evennement</a>
+        <a href="addEvent.php" target="_blank">ajouter un Evennement</a>
     </h2>
 
-<table border="1" align="center" width="70%">
-    <tr>
-        <th>Id Evennement</th>
-        <th>Nom</th>
-        <th>Localisation</th>
-        <th>Date</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-
-
-    <?php
-    // Afficher les joueurs dans le tableau
-    foreach ($events as $event) {
-    ?>
+    <table border="1" align="center" width="70%">
         <tr>
-        <td><?php echo $event['idevent'] ?> </td>
-        <td><?php echo $event['nom'] ?> </td>
-        <td><?php echo $event['local'] ?></td>
-        <td><?php echo $event['date'] ?></td>
-            <td>
-            <a href="updateEvent.php?idevent=<?php echo $event['idevent']?>" > UPDATE </a>
-            </td>
-            <td>
-            <a href="deleteEvent.php?idevent=<?php echo $event['idevent']?>" > DELETE </a> 
-            </td>
+            <th>Id Evennement</th>
+            <th>Nom</th>
+            <th>Localisation</th>
+            <th>date</th>
+            <th>Temps</th>
+            <th>Description</th>
+            <th>Type_event</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
+
         <?php
-}
-?>
-   
-</table></body>
+        // Afficher les joueurs dans le tableau
+        foreach ($events as $event) {
+        ?>
+            <tr>
+                <td><?php echo $event['idevent'] ?> </td>
+                <td><?php echo $event['nom'] ?> </td>
+                <td><?php echo $event['local'] ?></td>
+                <td><?php echo $event['date'] ?></td>
+                <td><?php echo $event['temps'] ?></td>
+                <td><?php echo $event['description'] ?></td>
+                <td>
+                    <?php
+                    $type_event = $type_eventC->showType_event($event['type_event']);
+                    echo $type_event;?>
+                    </td>
+
+                <td align="center">
+                    <form method="POST" action="updateEvent.php">
+                        <input type="submit" name="update" value="Update">
+                        <input type="hidden" value=<?PHP echo $event['idevent']; ?> name="idevent">
+                    </form>
+                </td>
+                <td>
+                    <a href="deleteEvent.php?idevent=<?php echo $event['idevent']?>"> DELETE </a> 
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+</body>
 </html>

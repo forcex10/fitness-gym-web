@@ -1,20 +1,18 @@
 <?php
-include_once('../../Controller/EventC.php');
-include_once '../../Model/Event.php';
-require_once 'C:/xampp/htdocs/fitness-gym-web/Controller/Type_eventC.php'; 
+include('../../Controller/Type_eventC.php');
+include '../../Model/Type_event.php';
 
 
-$type_eventC = new Type_eventC();  
-$type_events = $type_eventC->listeType_event();
- $eventController = new EventC();
+    $type_eventController = new Type_eventC();
+    if (isset($_POST['nom']) ) {
+        if(!empty($_POST['nom'])){
+            $type_event= new type_event(null,$_POST['nom']);
+            $type_eventC =$type_eventController->addType_event($type_event);
+            header("location:listeType_event.php");
+        }
+        else{
+            $erreur="missing information";
 
-    if (isset($_POST['nom']) || isset($_POST['local']) || isset($_POST['date']) || isset($_POST['temps']) || isset($_POST['description']) || isset($_POST['type_event'])) {
-        if (!empty($_POST['nom']) || !empty($_POST['local']) || !empty($_POST['date']) || !empty($_POST['temps']) || !empty($_POST['description']) || !empty($_POST['type_event'])) {
-            $event = new event(null, $_POST['nom'], $_POST['local'], $_POST['date'], $_POST['temps'], $_POST['description'], $_POST['type_event']);
-            $eventC = $eventController->addEvent($event);
-            header("location:listeEvent.php");
-        } else {
-            $erreur = "missing information";
         }
 }
 ?>
@@ -25,7 +23,7 @@ $type_events = $type_eventC->listeType_event();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un evennement</title>
+    <title>Ajouter un type d'evennement</title>
 
     <style>
         
@@ -92,7 +90,7 @@ $type_events = $type_eventC->listeType_event();
 </head>
 <body>
 
-    <a  href="listeEvent.php"> Back to list </a>
+    <a  href="listeType_event.php"> Back to list </a>
     <hr>
     
 
@@ -106,48 +104,6 @@ $type_events = $type_eventC->listeType_event();
                     <span id="erreurNom" style="color: red"></span>
                 </td>
             </tr>
-            <tr>
-                <td><label for="local">Localisation :</label></td>
-                <td>
-                <input type="text" id="local" name="local" required />
-                    <span id="erreurdescription" style="color: red"></span>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="date">Date d'evennement :</label></td>
-                <td>
-                <input type="date" id="date" name="date" required />
-                <span id="erreurtemps" style="color: red"></span>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="temps">temps d'evennement :</label></td>
-                <td>
-                <input type="time" id="temps" name="temps" required />
-                <span id="erreurtemps" style="color: red"></span>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="description">Description :</label></td>
-                <td>
-                <input type="text" id="description" name="description" required />
-                    <span id="erreurdescription" style="color: red"></span>
-                </td>
-            </tr>
-            <tr>
-                <td><label for="type_event">Type_event :</label></td>
-                <td>
-                    <select id="type_event" name="type_event" required>
-                        <?php
-                        foreach ($type_events as $type_event) {
-                            echo '<option value="' . $type_event['idtype_event'] . '">' . $type_event['nom'] ;
-                        }
-                        ?>
-                    </select>
-                    <span id="erreur_type_event" style="color: red"></span>
-                </td>
-            </tr>
-            
 
 
             <td>
