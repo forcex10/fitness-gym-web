@@ -1,0 +1,116 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('image12.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h1 {
+    color: #3498db;
+    font-size: 2em;
+}
+
+form {
+    text-align: left;
+    max-width: 600px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+textarea,
+input,
+select,
+input[type="time"] {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #3498db;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #333;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: beige;
+    padding: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1.1em;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #27ae60;
+    transform: translateY(-10px);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    max-width: 80%;
+    padding: 20px;
+}
+
+.form-group th, .form-group td {
+    border: 1px solid #3498db;
+    padding: 12px;
+    text-align: center;
+    background-color: #ecf0f1;
+    color: #333;
+}
+
+select,
+input[type="time"] {
+    font-size: 1em;
+}
+
+#goback {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    margin-right: 5px; /* Add some right margin for spacing */
+     /* Optional: invert the color of the image for a cool effect */
+    transition: transform 0.3s ease; /* Optional: Add a smooth transition effect */
+}
+
+#goback:hover {
+    transform: scale(1.2); /* Optional: Scale the image on hover for a zoom effect */
+}

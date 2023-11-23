@@ -1,0 +1,149 @@
+/* update.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('image12.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.go-back-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+#coursForm {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="file"] {
+    margin-top: 5px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #45a049;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+.form-group th, .form-group td {
+    border: 1px solid #3498db;
+    padding: 12px;
+    text-align: center;
+    background-color: #ecf0f1;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 15px;
+    max-width: 80%;
+    padding: 20px;
+}
+#goback {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    margin-right: 5px; /* Add some right margin for spacing */
+     /* Optional: invert the color of the image for a cool effect */
+    transition: transform 0.3s ease; /* Optional: Add a smooth transition effect */
+}
+#goback:hover {
+    transform: scale(1.2); /* Optional: Scale the image on hover for a zoom effect */
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #27ae60;
+    transform: translateY(-10px);
+}
+#image {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+.custom-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+}
+#nom_type {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+label[for="nom_type"] {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+label[for="image"] {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
