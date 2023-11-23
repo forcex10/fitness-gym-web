@@ -2,32 +2,32 @@
 include "C:/xampp/htdocs/fitness-gym-web/Controller/AbonnementC.php";
 include "C:/xampp/htdocs/fitness-gym-web/Model/Abonnement.php";
 $abonnementC=new AbonnementC();
-if (isset($_POST['username']) && isset($_POST['cour']) && isset($_POST['type']) && isset($_POST['methode']))
+if (isset($_POST['cour']) && isset($_POST['type']) && isset($_POST['methode']))
 {
-    if(!empty($_POST['username']) && !empty($_POST['cour']) && !empty($_POST['type']) && !empty($_POST['methode']))
+    if(!empty($_POST['cour']) && !empty($_POST['type']) && !empty($_POST['methode']))
     {
         $methode=$_POST['methode'];
         var_dump($methode);
         if($methode==='cb')
         {
-            $abonnement=new Abonnement(null,$_POST['username'],$_POST['cour'],$_POST['type'],$_POST['methode'],$_POST['num_cb'],$_POST['titulaire_cb'],$_POST['exp_cb'],$_POST['cvv_cb'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+            $abonnement=new Abonnement(NULL,NULL,$_POST['cour'],$_POST['type'],$_POST['methode'],$_POST['num_cb'],$_POST['titulaire_cb'],$_POST['exp_cb'],$_POST['cvv_cb'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
         }
 
         else if($methode==='visa')
         {
-            $abonnement=new Abonnement(null,$_POST['username'],$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,$_POST['num_visa'],$_POST['titulaire_visa'],$_POST['exp_visa'],$_POST['cvv_visa'],NULL,NULL,NULL,NULL,NULL);
+            $abonnement=new Abonnement(NULL,NULL,$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,$_POST['num_visa'],$_POST['titulaire_visa'],$_POST['exp_visa'],$_POST['cvv_visa'],NULL,NULL,NULL,NULL,NULL);
 
         }
 
         else if($methode==='mc')
         {
-            $abonnement=new Abonnement(null,$_POST['username'],$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$_POST['num_mc'],$_POST['exp_mc'],$_POST['cvv_mc'],NULL,NULL);
+            $abonnement=new Abonnement(NULL,NULL,$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$_POST['num_mc'],$_POST['exp_mc'],$_POST['cvv_mc'],NULL,NULL);
 
         }
         else 
         {
-            $abonnement=new Abonnement(null,$_POST['username'],$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$_POST['num_edinar'],$_POST['code_edinar']);
+            $abonnement=new Abonnement(NULL,NULL,$_POST['cour'],$_POST['type'],$_POST['methode'],NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,$_POST['num_edinar'],$_POST['code_edinar']);
 
 
         }
@@ -124,10 +124,8 @@ if (isset($_POST['username']) && isset($_POST['cour']) && isset($_POST['type']) 
   <div class="container">
       <h2>Formulaire d'Abonnement</h2>
       <form action="" method="POST" onsubmit="return validerFormulaire()">
-          <label for="username">Username :</label>
-          <input type="text" id="username" name="username">
 
-         
+
           <label for="cour">Cour :</label>
           <select id="cour" name="cour">
               <option value="boxe">boxe </option>
@@ -220,8 +218,16 @@ if (isset($_POST['username']) && isset($_POST['cour']) && isset($_POST['type']) 
             var exp_cb = document.getElementById("exp_cb").value;
             var cvv_cb = document.getElementById("cvv_cb").value;
 
-            if (!estEntier(num_cb) || !estEntier(cvv_cb) || !estMoisAnnee(exp_cb) || titulaire_cb === "") {
-                alert("Veuillez remplir correctement tous les champs pour la Carte bancaire");
+            if (!estEntier(num_cb) || num_cb<1000000000000000 || num_cb>9999999999999999 || !estEntier(cvv_cb) || cvv_cb<1000 || cvv_cb>9999 || !estMoisAnnee(exp_cb) || titulaire_cb === "") {
+                if(!estEntier(num_cb) || num_cb<1000000000000000 || num_cb>9999999999999999)
+                    alert("Veuillez saisir un numero de carte bancaire correct (16 chiffres) Actuellement: " + num_cb.length + " chiffres");
+                else if(!estEntier(cvv_cb) || cvv_cb<1000 || cvv_cb>9999 )
+                    alert("Veuillez saisir un code de carte bancaire correct (4 chiffre )");
+                else if(!estMoisAnnee(exp_cb))
+                    alert("Veuillez saisir une date d'expiration correct de la carte bancaire (mm/aa) ");
+                else if(titulaire_cb === "")
+                    alert("Veuillez saisir un titulaire de la carte bancaire ");
+
                 return false;
             }
         } else if (methode === "visa") {
@@ -230,8 +236,15 @@ if (isset($_POST['username']) && isset($_POST['cour']) && isset($_POST['type']) 
             var exp_visa = document.getElementById("exp_visa").value;
             var cvv_visa = document.getElementById("cvv_visa").value;
 
-            if (!estEntier(num_visa) || !estEntier(cvv_visa) || !estMoisAnnee(exp_visa) || titulaire_visa === "") {
-                alert("Veuillez remplir correctement tous les champs pour la Carte VISA");
+            if (!estEntier(num_visa) || num_visa<1000000000000000  || num_visa>9999999999999999 || !estEntier(cvv_visa) || cvv_visa<1000 || cvv_visa>9999 || !estMoisAnnee(exp_visa) || titulaire_visa === "") {
+                if(!estEntier(num_visa) || num_visa<1000000000000000  || num_visa>9999999999999999)
+                alert("Veuillez saisir un numero de carte bancaire correct (16 chiffres) Actuellement: " + num_visa.length + " chiffres");
+                else if(!estEntier(cvv_visa) || cvv_visa<1000 || cvv_visa>9999 )
+                    alert("Veuillez saisir un code de carte VISA correct (4 chiffres )");
+                else if(!estMoisAnnee(exp_visa))
+                    alert("Veuillez saisir une date d'expiration correct de la carte VISA (mm/aa)");
+                else if(titulaire_visa === "")
+                    alert("Veuillez saisir un titulaire de la carte VISA ");
                 return false;
             }
         } else if (methode === "mc") {
@@ -239,16 +252,24 @@ if (isset($_POST['username']) && isset($_POST['cour']) && isset($_POST['type']) 
             var exp_mc = document.getElementById("exp_mc").value;
             var cvv_mc = document.getElementById("cvv_mc").value;
 
-            if (!estEntier(num_mc) || !estEntier(cvv_mc) || !estMoisAnnee(exp_mc)) {
-                alert("Veuillez remplir correctement tous les champs pour la MasterCard");
+            if (!estEntier(num_mc) || num_mc<1000000000000000 || num_mc>9999999999999999 || !estEntier(cvv_mc) || cvv_mc<1000 || cvv_mc>9999 || !estMoisAnnee(exp_mc)) {
+                if(!estEntier(num_mc) || num_mc<1000000000000000 || num_mc>9999999999999999)
+                alert("Veuillez saisir un numero de carte bancaire correct (16 chiffres) Actuellement: " + num_mc.length + " chiffres");
+                else if(!estEntier(cvv_mc) || cvv_mc<1000 || cvv_mc>9999 )
+                    alert("Veuillez saisir un code de carte VISA correct (4 chiffres )");
+                else if(!estMoisAnnee(exp_mc))
+                    alert("Veuillez saisir une date d'expiration correct de la master carte (mm/aa)");
                 return false;
             }
         } else if (methode === "edinar") {
             var num_edinar = document.getElementById("num_edinar").value;
             var code_edinar = document.getElementById("code_edinar").value;
 
-            if (!estEntier(num_edinar) || !estEntier(code_edinar)) {
-                alert("Veuillez remplir correctement tous les champs pour l'e-DINAR");
+            if (!estEntier(num_edinar) || !estEntier(code_edinar) || num_edinar<1000000000000000 || num_edinar>9999999999999999 || code_edinar<1000 || code_edinar>9999 ) {
+                if(!estEntier(num_edinar) || num_edinar<1000000000000000 || num_edinar>9999999999999999)
+                alert("Veuillez saisir un numero de carte bancaire correct (16 chiffres) Actuellement: " + num_edinar.length + " chiffres");
+                else if(!estEntier(code_edinar) || code_edinar<1000 || code_edinar>9999 )
+                    alert("Veuillez saisir un code de carte edinar correct (4 chiffres )");
                 return false;
             }
         }

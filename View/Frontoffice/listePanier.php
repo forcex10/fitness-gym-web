@@ -1,14 +1,12 @@
 <?php
-    include "C:/xampp/htdocs/fitness-gym-web/Controller/AbonnementC.php";
-    include "C:/xampp/htdocs/fitness-gym-web/Controller/TypeAbonnementC.php";
-    $AbonnementC = new AbonnementC();
-    $list = $AbonnementC->listAbonnement();
-    $TypeAbonnementC = new TypeAbonnementC();
+    include "C:/xampp/htdocs/fitness-gym-web/Controller/PanierC.php";
+    $PanierC = new PanierC();
+    $list = $PanierC->listPanier();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des Abonnements</title>
+    <title>Panier Client</title>
     <style>
 body {
     margin: 0;
@@ -97,30 +95,24 @@ td a:hover {
     </style>
 </head>
 <body>
-    <h2>Liste des Abonnements</h2>
-    <a href="addAbonnement.php" class="add-button">Add Abonnement</a>
-
+    <h2>Mon Panier</h2>
     <?php if ($list->rowCount() > 0): ?>
         <table>
             <thead>
                 <tr>
-                    <th>Id Abonnement</th>
-                    <th>Username</th>
-                    <th>Cour</th>
-                    <th>Type</th>
-                    <th>methode</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Quantite</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($list as $abonnement): ?>
+                <?php foreach ($list as $panier): ?>
                     <tr>
-                        <td><?php echo $abonnement['Id_abonnement']; ?></td>
-                        <td><?php echo $abonnement['username']; ?></td>
-                        <td><?php echo $abonnement['cour']; ?></td>
-                        <td><?php $typeabo=$TypeAbonnementC->showTypeAbonnement($abonnement['id_type_abo']) ;
-                                  echo $typeabo['nom'].' ( '.$typeabo['duree'] . ' mois ' . $typeabo['prix'] .' DT )' ;
-                         ?></td>
-                        <td><?php echo $abonnement['methode']; ?></td>
+                        <td><?php echo $panier['Id_abonnement']; ?></td>
+                        <td><?php echo $panier['username']; ?></td>
+                        <td><?php echo $panier['cour']; ?></td>
+                        <td><?php echo $panier['type']; ?></td>
+                        <td><?php echo $panier['methode']; ?></td>
                         <td>
                             <form method="POST" action="updateAbonnement.php">
                                 <input type="submit" name="update" class="update-link" value="UPDATE">

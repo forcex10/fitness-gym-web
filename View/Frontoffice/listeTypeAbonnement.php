@@ -1,14 +1,12 @@
 <?php
-    include "C:/xampp/htdocs/fitness-gym-web/Controller/AbonnementC.php";
     include "C:/xampp/htdocs/fitness-gym-web/Controller/TypeAbonnementC.php";
-    $AbonnementC = new AbonnementC();
-    $list = $AbonnementC->listAbonnement();
     $TypeAbonnementC = new TypeAbonnementC();
+    $list = $TypeAbonnementC->listTypeAbonnement();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des Abonnements</title>
+    <title>Liste des Type D'Abonnements</title>
     <style>
 body {
     margin: 0;
@@ -97,43 +95,39 @@ td a:hover {
     </style>
 </head>
 <body>
-    <h2>Liste des Abonnements</h2>
-    <a href="addAbonnement.php" class="add-button">Add Abonnement</a>
+    <h2>Liste des Type Abonnements</h2>
+    <a href="addTypeAbonnement.php" class="add-button">Ajouter un Type D'Abonnement</a>
 
     <?php if ($list->rowCount() > 0): ?>
         <table>
             <thead>
                 <tr>
-                    <th>Id Abonnement</th>
-                    <th>Username</th>
-                    <th>Cour</th>
-                    <th>Type</th>
-                    <th>methode</th>
+                    <th>Id_Type_Abonnement</th>
+                    <th>nom</th>
+                    <th>duree(mois)</th>
+                    <th>prix(DT)</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($list as $abonnement): ?>
                     <tr>
-                        <td><?php echo $abonnement['Id_abonnement']; ?></td>
-                        <td><?php echo $abonnement['username']; ?></td>
-                        <td><?php echo $abonnement['cour']; ?></td>
-                        <td><?php $typeabo=$TypeAbonnementC->showTypeAbonnement($abonnement['id_type_abo']) ;
-                                  echo $typeabo['nom'].' ( '.$typeabo['duree'] . ' mois ' . $typeabo['prix'] .' DT )' ;
-                         ?></td>
-                        <td><?php echo $abonnement['methode']; ?></td>
+                        <td><?php echo $abonnement['id_type_abo']; ?></td>
+                        <td><?php echo $abonnement['nom']; ?></td>
+                        <td><?php echo $abonnement['duree']; ?></td>
+                        <td><?php echo $abonnement['prix']; ?></td>
                         <td>
-                            <form method="POST" action="updateAbonnement.php">
+                            <form method="POST" action="updateTypeAbonnement.php">
                                 <input type="submit" name="update" class="update-link" value="UPDATE">
-                                <input type="hidden" value=<?PHP echo $abonnement['Id_abonnement']; ?> name="id_abonnement">
+                                <input type="hidden" value=<?PHP echo $abonnement['id_type_abo']; ?> name="id_type_abo">
                             </form>
                          </td>
-                        <td> <a href="deleteAbonnement.php?Id_Abonnement=<?php echo $abonnement['Id_abonnement']?>" class="delete-link" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet abonnement ?')"> DELETE </a> </td>
+                        <td> <a href="deleteTypeAbonnement.php?id_type_abo=<?php echo $abonnement['id_type_abo']?>" class="delete-link" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet abonnement ?')"> DELETE </a> </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p class="no-abonnements">Aucun abonnement trouvé.</p>
+        <p class="no-abonnements">Aucun type d'abonnement trouvé.</p>
     <?php endif; ?>
 </body>
 </html>
