@@ -1,6 +1,4 @@
-
-   
- const bouton = document.getElementById("bouton");
+const bouton = document.getElementById("bouton");
  const nomInput = document.getElementById("productname");
  const descriptionInput = document.getElementById("productdescription");
  const prixInput = document.getElementById("productprice");

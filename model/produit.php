@@ -6,14 +6,19 @@ class produit
     private ?string $description = null;
     private ?int $prix = null;
     private ?int $quantite = null;
+    private ?int $type = null;
+    private ?string $image = null;
+  
 
-    public function __construct($id = null, $n, $d, $p, $q)
+    public function __construct($id = null, $n, $d, $p, $q,$t,$i)
     {
         $this->id= $id;
         $this->nom = $n;
         $this->description = $d;
         $this->prix = $p;
         $this->quantite = $q;
+        $this->type = $t;
+        $this->image = $i;
     }
 
 
@@ -77,4 +82,29 @@ class produit
 
         return $this;
     }
+    public function gettype()
+    {
+        return $this->type;
+    }
+
+
+    public function settype($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+    public function getimage()
+    {
+        return $this->image;
+    }
+
+
+    public function setimage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+    
 }

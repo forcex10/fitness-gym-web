@@ -3,6 +3,8 @@
 class config
 {
     private static $pdo = null;
+    
+
 
     public static function getConnexion()
     {
@@ -24,6 +26,12 @@ class config
         }
         return self::$pdo;
     }
+   
+
+
+
+
+
 }
 
 
@@ -34,3 +42,5 @@ class config
 
 
 config::getConnexion();
+
+

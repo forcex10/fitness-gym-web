@@ -1,45 +1,81 @@
 <?php
-
+require_once "../controller/typeC.php";
 include '../controller/produitC.php';
 include '../model/produit.php';
 include 'verif.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+
+$typec = new typeC();
 $error = "";
-
-// create client
+$msg="";
+// create produit
 $produit = null;
 
 // create an instance of the controller
 $produitC = new produitC();
+if(isset($_POST["save"])){
+    $target = "images/" . basename($_FILES['image']['name']);
+    $image=$_FILES['image']['name'];
+
+}
 if (
     isset($_POST["productname"]) &&
     isset($_POST["productdescription"]) &&
     isset($_POST["productprice"]) &&
-    isset($_POST["productstock"])
+    isset($_POST["productstock"])&&
+    isset($_POST["type"])
+    //isset($_POST["image"])
+   
 ) {
+
+   
+
     if (
-        !empty($_POST["productname"]) &&
+        !empty($_POST["productname"]) && 
         !empty($_POST["productdescription"]) &&
-        !empty($_POST["productprice"]) &&
+        !empty($_POST["productprice"]) && !empty($_POST["type"]) &&
         !empty($_POST["productstock"]) && validerNom($_POST["productname"]) && validerDescription($_POST["productdescription"])  && validerPrix( $_POST["productprice"],1000) && validerQuantite($_POST["productstock"], 1000) 
     ) {
+  
+
+        $image=$_FILES['image']['name'];
         $produit = new produit(
             null,
             $_POST["productname"],
             $_POST["productdescription"],
             $_POST["productprice"],
-            $_POST["productstock"]
+            $_POST["productstock"],
+            $_POST["type"],
+            $image
+
+          
         );
     
 /*if(validerNom($_POST["productname"]) && validerDescription($_POST["productdescription"]) && validerNom($_POST["productname"]) && validerPrix( $_POST["productprice"],1000) && validerQuantite($_POST["productstock"], 1000)  ){*/
 
         $produitC->addproduit($produit);
+        if(move_uploaded_file($_FILES['image']['tmp_name'],$target)){
+$msg="Image uploaded successfully";
 
-        
-        header('Location:listeproduits.php');
+        }
+        else{
+            $msg="the was a problem uploading image". $_FILES['image']['error'];
+        }
+        echo "Debug Info:";
+var_dump($produitC); // Vérifiez si les données sont correctes
+var_dump($msg); // Affichez le message d'erreur
+
+        header('Location:listeproduits.php');  
+        exit;
+      
     } else
         $error = "Missing information";
+       
 }
+$type = $typec->affichertype();
 
 
 ?>
@@ -62,7 +98,8 @@ if (
   
     
 
-    <form action="" method="POST" id="gymForm" >
+    <form action="" method="POST" id="gymForm" enctype="multipart/form-data" >
+    <input   type="hidden"   name="size"  value="1000000"    >
     <center>
     <h1>produit</h1>
     <h2>
@@ -80,7 +117,7 @@ if (
             <tr>
                 <td><label for="productdescription">Description :</label></td>
                 <td>
-                <input type="text" id="productdescription" name="productdescription" required>
+                <textarea type="text" id="productdescription" name="productdescription" required> </textarea>
                 <span id="erreurdescription" class="erreur" style="color: red"></span>
                 </td>
             </tr>
@@ -99,21 +136,48 @@ if (
 
                 </td>
             </tr>
+            <tr>
+               
+                <td>
+                   
+                <input type="file" id="image" name="image" required>
+
+
+                </td>
+            </tr>
+            
 
 
             <td>
-                <input type="submit" id="saveButton" class="design10" value="Save">
+                <input type="submit" id="saveButton" class="design10" value="Save" name="save">
             </td>
             <td>
             <input type="reset" id="resetButton"
             class="design10" value="Reset" onclick="effacerMessagesErreur()">
             </td>
+            <label for="type">choisir un type :</label>
+    <select name="type" id="type">
+        <?php foreach ($type as $types) { ?>
+            <option value="<?= $types['idtype'] ?>">
+                <div class="custom-option">
+                    <span class="label">Nom :</span>
+                    <span class="value"><?= $types['nomtype'] ?></span>
+                    <span class="separator"> || </span>
+                    <span class="label">Description :</span>
+                    <span class="value"><?= $types['descriptiontype'] ?></span>
+                </div>
+            </option>
+        <?php } ?>
+    </select>
             <td>
             <button type="button" id="bouton" >Verifier</button></td>
 
         </table>
        
     </form>
+    <?php if (!empty($msg)): ?>
+        <div><?php echo $msg; ?></div>
+    <?php endif; ?>
     <script src="emir.js"></script>
 </body>
 

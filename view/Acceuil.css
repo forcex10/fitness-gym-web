@@ -935,4 +935,153 @@
     margin-top: -117px;
     margin-left: 94px;
   }
+  
+}
+#emir {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9; /* Light gray background */
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+#emir header {
+  background-color: #3498db; /* Blue color for the header */
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+#emir h1 {
+  color: #000; /* Black color for h1 */
+  text-align: center;
+  margin-top: 30px;
+}
+
+#emir h2 {
+  color: #3498db; /* Blue color for h2 */
+  text-align: center;
+  margin-top: 30px;
+}
+
+#emir p, #emir label {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+#emir p.intro {
+  color: #000; /* Black color for the specified paragraph */
+  font-size: 50px; /* Larger font size */
+}
+
+#emir form {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#emir label {
+  display: block;
+  margin-bottom: 10px;
+  color: #3498db; /* Blue color for the label */
+}
+
+#emir select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #3498db; /* Blue border color */
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #ecf0f1;
+  color: #555;
+  transition: border-color 0.3s ease;
+}
+
+#emir select:hover, select:focus {
+  border-color: #2980b9; /* Darker blue on hover/focus */
+}
+
+#emir input[type="submit"] {
+  background-color: #3498db; /* Blue color for the submit button */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#emir input[type="submit"]:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+#emir table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#emir th, #emir td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  background-color: #fff;
+}
+
+#emir th {
+  background-color: #3498db; /* Blue color for table header */
+  color: #fff;
+}
+
+#emir img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#emir .custom-option {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border: 1px solid #3498db;
+      margin-bottom: 5px;
+      background-color: #f9f9f9;
+      transition: background-color 0.3s;
+  }
+
+  #emir  .custom-option:hover {
+      background-color: #e0e0e0;
+  }
+
+  #emir .custom-option span {
+      margin-bottom: 5px;
+  }
+
+  #emir  .custom-option .label {
+      font-weight: bold;
+      color: #3498db;
+      font-size: 14px;
+  }
+
+  #emir  .custom-option .value {
+      color: #333;
+      font-size: 16px;
+  }
+
+  #emir  .custom-option .separator {
+      color: #777;
+  }
+  #emir  .product-image {
+  max-width: 100px; /* Ajustez la largeur maximale de l'image */
+  height: auto; /* Pour maintenir les proportions de l'image */
+  border: 2px solid #3498db; /* Couleur de la bordure */
+  border-radius: 5px; /* Coins arrondis */
+  display: block;
+  margin: 0 auto; /* Centrez l'image dans la cellule */
 }

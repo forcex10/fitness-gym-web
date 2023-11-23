@@ -22,6 +22,7 @@ $tab = $c->listproduits();
         <th>Desciption</th>
         <th>Prix</th>
         <th>Quantite</th>
+        <th>Image</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -40,6 +41,8 @@ $tab = $c->listproduits();
             <td><?= $produit['description']; ?></td>
             <td><?= $produit['prix']; ?></td>
             <td><?= $produit['quantite']; ?></td>
+            <td><img src="images/<?= $produit['image'] ?>" alt="Produit Image" class="product-image" style="width: 100px; height: 100px; border: 2px solid #3498db;"></td>
+
             <td align="center">
                 <form method="POST" action="updateproduit.php">
                     <input type="submit" name="update" value="Update">

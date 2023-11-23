@@ -1,6 +1,6 @@
 <?php
 
-require '../config.php';
+require_once "../config.php";
 
 class produitC
 {
@@ -34,7 +34,7 @@ class produitC
 
     function addproduit($produit)
     {
-        $sql = "INSERT INTO produits  VALUES (NULL, :nom,:description,:prix,:quantite)";
+        $sql = "INSERT INTO produits  VALUES (NULL, :nom,:description,:prix,:quantite,:type,:image)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -43,6 +43,9 @@ class produitC
                 'description' => $produit->getdescription(),
                 'prix' => $produit->getprix(),
                 'quantite' => $produit->getquantite(),
+                'type' => $produit->gettype(),
+                'image' => $produit->getimage(),
+               
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -63,6 +66,20 @@ class produitC
             die('Error: ' . $e->getMessage());
         }
     }
+    function showtypes($type)
+    {
+        $sql = "SELECT * from type where idtype = $type";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $produit = $query->fetch();
+            return $produit;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
 
     function updateproduit($produit, $id)
     {   
@@ -73,7 +90,9 @@ class produitC
                     nom = :nom, 
                     description = :description, 
                     prix = :prix, 
-                    quantite = :quantite
+                    quantite = :quantite,
+                    type = :type,
+                    image = :image
                 WHERE id= :id'
             );
             
@@ -83,6 +102,8 @@ class produitC
                 'description' => $produit->getdescription(),
                 'prix' => $produit->getprix(),
                 'quantite' => $produit->getquantite(),
+                'type' => $produit->gettype(),
+                'image' => $produit->getimage(),
             ]);
             
             echo $query->rowCount() . " records UPDATED successfully <br>";
