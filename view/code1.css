@@ -1,0 +1,90 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image: url(rendu-3d-salle-gym-fitness-loft-moderne_105762-2020.webp);
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .add-link {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    max-width: 120px;
+    overflow: hidden;
+  }
+  
+  th {
+    background-color: #3498db; /* Couleur d'arrière-plan pour les en-têtes */
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Couleur de fond pour les lignes paires */
+  }
+  
+  .action-buttons {
+    text-align: center;
+  }
+  
+  .update-button, .delete-link {
+    background-color: #3498db;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .update-button:hover, .delete-link:hover {
+    background-color: #2980b9;
+  }
+  a{
+text-decoration: none;
+
+
+  }
+  .product-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border: 2px solid #3498db; /* Couleur de la bordure */
+    border-radius: 10px; /* Coins arrondis */
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    transition: border 0.3s ease; /* Ajoutez une transition pour un effet visuel */
+}
+
+.product-image:hover {
+    border: 2px solid #2980b9; /* Couleur de la bordure au survol */
+}
