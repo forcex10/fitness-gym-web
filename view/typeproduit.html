@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title> Type Produit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url(Enyeto_salle_slider_salle2-1080x500.webp);
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-container {
+      width: 45%;
+      margin: 20px;
+      padding: 40px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    label {
+      flex: 0 0 100%;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input,
+    textarea,
+    select {
+      flex: 0 0 48%; /* Réduire la largeur à 48% */
+      padding: 5px;
+      border: 1px solid #3498db;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #e74c3c;
+    }
+
+    button {
+      background-color: #e74c3c;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      margin-left: 300px;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+
+    /* Ajoutez du CSS pour espacer les titres du tableau */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #fff;
+    }
+
+    th:nth-child(odd) {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Type produit</h2>
+
+    <form id="gymForm">
+      <!-- Type de Produit -->
+      <!-- Produit Form -->
+      <label for="typename">Nom :</label>
+<input type="text" id="typename" name="typename" required>
+<span id="erreurnom" style="color: red"></span>
+
+
+
+<label for="typetstock">Quantité :</label>
+<input type="text" id="typestock" name="typestock" required>
+<span id="erreurstock" style="color: red"></span>
+
+      <!-- Boutons CRUD -->
+      <button type="button" id="bouton" >Ajouter type</button>
+    </form>
+  </div>
+
+  <!-- Le tableau est en dessous du formulaire -->
+  <table>
+    <tr>
+      <th>Nom</th>
+      <th>Quantité</th>
+      <th>Modifier</th>
+      <th>Supprimer</th>
+    
+    </tr>
+    <!-- ... Contenu de votre tableau ... -->
+  </table>
+  <script src="njareb.js"></script>
+</body>
+</html>
+
