@@ -35,7 +35,7 @@ class PostC
     function addpost($post)
     {
         $sql = "INSERT INTO post  
-        VALUES (NULL, :nom,:prenom, :email,:contenu)";
+        VALUES (NULL, :nom, :prenom, :email, :contenu, :img)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -44,6 +44,7 @@ class PostC
                 'prenom' => $post->getPrenom(),
                 'email' => $post->getEmail(),
                 'contenu' => $post->getcontenu(),
+                'img' => $post->getimg(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -74,7 +75,8 @@ class PostC
                 nom = :nom, 
                 prenom = :prenom, 
                 email = :email, 
-                contenu = :contenu
+                contenu = :contenu,
+                img = :img
             WHERE idpost = :idpost'
         );
         
@@ -84,6 +86,7 @@ class PostC
             'prenom' => $post->getPrenom(),
             'email' => $post->getEmail(),
             'contenu' => $post->getcontenu(),
+            'img' => $post->getimg(),
         ]);
         
         echo $query->rowCount() . " records UPDATED successfully <br>";

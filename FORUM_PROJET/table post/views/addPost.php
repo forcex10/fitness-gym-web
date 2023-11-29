@@ -17,13 +17,15 @@ if (
     isset($_POST["nom"]) &&
     isset($_POST["prenom"]) &&
     isset($_POST["email"]) &&
-    isset($_POST["contenu"])
+    isset($_POST["contenu"])&&
+    isset($_POST["img"])
 ) {
     if (
         !empty($_POST['nom']) &&
         !empty($_POST["prenom"]) &&
         !empty($_POST["email"]) &&
         !empty($_POST["contenu"])&&
+        //!empty($_POST["img"])&&
         validerNom($_POST["nom"]) &&
         validerPrenom($_POST["prenom"]) &&
         validerEmail($_POST["email"])
@@ -33,7 +35,8 @@ if (
             $_POST['nom'],
             $_POST['prenom'],
             $_POST['email'],
-            $_POST['contenu'] 
+            $_POST['contenu'],
+            $_POST['img'] 
         );
         $postC->addpost($post);
         header('Location:listPost.php');
@@ -125,7 +128,7 @@ echo "<script>alert('" . $error . "');</script>";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joueur </title>
+    <title>post </title>
 </head>
 
 <body>
@@ -167,6 +170,14 @@ echo "<script>alert('" . $error . "');</script>";
                     <span id="erreurcontenu" style="color: red"></span>
                 </td>
             </tr>
+            <tr>
+    <td><label for="img">Image :</label></td>
+    <td>
+        <input type="file" id="img" name="img" accept="image/*" />
+        <span id="erreurImg" style="color: red"></span>
+    </td>
+</tr>
+            
 
 
             <td>

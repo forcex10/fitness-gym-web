@@ -45,7 +45,7 @@ table {
 }
 
 th, td {
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   padding: 8px;
   text-align: center;
 }
@@ -68,10 +68,13 @@ button {
 /* ... */
 
 /* Style du fond d'écran */
-body {
-  background-image: url('salle.png');
-  background-size: cover;
+/* Style pour la section contenant le tableau */
+.table-section {
+    background-color: #f2f2f2; /* Couleur de fond que vous souhaitez */
+    padding: 20px; /* Ajoute un peu de marge à l'intérieur de la section */
+    /* Autres styles si nécessaire */
 }
+
 
   </style></head>
 <body  data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-d798"><div class="u-clearfix u-sheet u-sheet-1">
@@ -116,7 +119,8 @@ body {
         </div>
       <style class="offcanvas-style">            .u-offcanvas .u-sidenav { flex-basis: 250px !important; }            .u-offcanvas:not(.u-menu-open-right) .u-sidenav { margin-left: -250px; }            .u-offcanvas.u-menu-open-right .u-sidenav { margin-right: -250px; }            @keyframes menu-shift-left    { from { left: 0;        } to { left: 250px;  } }            @keyframes menu-unshift-left  { from { left: 250px;  } to { left: 0;        } }            @keyframes menu-shift-right   { from { right: 0;       } to { right: 250px; } }            @keyframes menu-unshift-right { from { right: 250px; } to { right: 0;       } }            </style></nav>
       <img class="u-image u-image-contain u-image-default u-image-2" src="images/prsentation.png" alt="" data-image-width="846" data-image-height="433">
-    </div></header>
+    </div></header> <hr>
+    
   
   
   
@@ -124,12 +128,8 @@ body {
   
   
 
-<style>.u-disable-duration * {transition-duration: 0s !important;} <style>
-    body {
-      background: url('salle.png');
-      background-size: cover;
-    }
-  </style></style></body></html>
+</style></body></html>
+<div class="table-section">
 <center>
     <!-- <h2>bienvenue au forum</h2>-->
     <h2>
@@ -145,6 +145,8 @@ body {
         <!--<th>Email</th>-->
         <th style="background-color: #ccc;">Date d'ajout</th>
         <th style="background-color: #ccc;">post</th>
+        <th style="background-color: #ccc;">image</th>
+        <th style="border: none;"></th>
         <th style="border: none;"></th>
         <th style="border: none;"></th>
     </tr>
@@ -159,18 +161,30 @@ body {
             <td>
                 <textarea rows="10" cols="50"><?= $post['contenu']; ?></textarea>
             </td>
+            <td align="center">
+            <!-- Utilisation de la balise img pour afficher l'image -->
+            <img src="<?= $post['img']; ?>"  style="max-width: 150px; max-height: 150px;">
+        </td>
             <td align="center" style="border: none;">
                 <form method="POST" action="updatePost.php">
-                    <button type="submit" style="padding: 5px 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;">Update</button>
+                    <button type="submit" style="padding: 5px 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;">modifier</button>
                     <input type="hidden" value="<?= $post['idpost']; ?>" name="idpost">
                 </form>
             </td>
             <td style="border: none;">
                 <form method="GET" action="deletePost.php" style="margin: 0;">
                     <input type="hidden" value="<?= $post['idpost']; ?>" name="idpost">
-                    <button type="submit" style="padding: 5px 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;">Delete</button>
+                    <button type="submit" style="padding: 5px 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;">supprimer</button>
                 </form>
             </td>
+            <td style="border: none;"> 
+    <a href="C:\xampp\htdocs\fitness-gym-web\FORUM_PROJET\table commentaire\listCom.php" style="padding: 5px 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;">commenter</a>
+</td>
+
         </tr>
     <?php } ?>
 </table>
+</div>
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-a4cc"><div class="u-clearfix u-sheet u-sheet-1">
+        <!--<p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the Text Element.</p>-->
+      </div></footer>
