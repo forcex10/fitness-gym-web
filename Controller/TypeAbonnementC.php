@@ -15,6 +15,31 @@ class TypeAbonnementC
         }
     }
 
+    public function listTypeAbonnementSup($duree)
+    {
+        $sql = "SELECT * FROM type_abonnement WHERE duree>=$duree" ;
+        $db = config::getConnexion();
+        try {
+                    $liste =$db->query($sql);
+                    return $liste;
+            } 
+        catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+    public function listTypeAbonnementInf($duree)
+    {
+        $sql = "SELECT * FROM type_abonnement WHERE duree< $duree" ;
+        $db = config::getConnexion();
+        try {
+                    $liste =$db->query($sql);
+                    return $liste;
+            } 
+        catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
     function deleteTypeAbonnement($ide)
     {
         $sql = "DELETE FROM type_abonnement WHERE id_type_abo = :id";
