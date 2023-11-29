@@ -63,7 +63,20 @@ public function showType_event($idtype_event) {
         echo $e->getMessage();
     }
 }
-
+function showType_event2($idtype_event){
+    {
+        $sql = "SELECT * from type_evennement where idtype_event = $idtype_event";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $event = $query->fetch();
+            return $event;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+}
     
     function updateType_event($type_event, $idtype_event)
     {
@@ -82,13 +95,14 @@ public function showType_event($idtype_event) {
                 
 
             ]);
+            
 
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
             $e->getMessage();
         }
     }
-    public function afficherEvent($idtype_event) {
+  public function afficherEvent($idtype_event) {
         try {
             $pdo = config::getConnexion();
             $query = $pdo->prepare("SELECT * FROM evennement WHERE type_event = :idtype_event");
@@ -101,7 +115,7 @@ public function showType_event($idtype_event) {
     
     
 
-    public function afficherType_event() {
+ public function afficherType_event() {
         try {
             $pdo=config::getConnexion();
             $query = $pdo->prepare("SELECT * FROM type_evennement");
