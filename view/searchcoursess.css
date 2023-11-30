@@ -1,0 +1,290 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light gray background */
+    margin: 0;
+    padding: 0;
+    color: #050000;
+    overflow: hidden;
+    background-image: url(price-bg.jpg);
+   
+}
+
+header {
+    background-color: #db3434; /* Blue color for the header */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+   /* Use gradient for the background */
+    background-size: 200% 200%; /* Make the background larger for animation */
+    animation: backgroundAnimation 10s infinite;
+}
+
+h1 {
+    color: #fffdfd; /* Black color for h1 */
+    text-align: center;
+    margin-top: 30px;
+}
+h2 {
+    color: #fffdfd; /* Black color for h1 */
+    text-align: center;
+   
+}
+
+
+p, label {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1f1919;
+}
+
+p.intro {
+    color: #000; /* Black color for the specified paragraph */
+    font-size: 50px; /* Larger font size */
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #971908; /* Blue color for the label */
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #e2190f; /* Blue border color */
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #ecf0f1;
+    color: #0f0b0b;
+    transition: border-color 0.3s ease;
+}
+
+select:hover, select:focus {
+    border-color: #121415; /* Darker blue on hover/focus */
+}
+
+input[type="submit"] {
+    background-color: #da2623; /* Blue color for the submit button */
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.custom-h2 {
+color :#f4f5f5
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(84, 11, 4); /* Darker blue on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+}
+
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.custom-option {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border: 1px solid #db4d34;
+        margin-bottom: 5px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s;
+    }
+
+    .custom-option:hover {
+        background-color: #e0e0e0;
+    }
+
+    .custom-option span {
+        margin-bottom: 5px;
+    }
+
+    .custom-option .label {
+        font-weight: bold;
+        color: #db3934;
+        font-size: 14px;
+    }
+
+    .custom-option .value {
+        color: #151414;
+        font-size: 16px;
+    }
+
+    .custom-option .separator {
+        color: #171515;
+    }
+    .product-image {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #000406;
+        border-radius: 5px;
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.3s ease-in-out; /* Added transition for a smooth effect */
+    }
+/* Add this to the existing CSS file */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+
+
+.custom-card:hover {
+    transform: scale(1.1);
+}
+
+.custom-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.custom-card h3 {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.custom-card-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    border-top: 1px solid #fbfbfb;
+    border-radius: 0 0 8px 8px;
+    transition: background-color 0.3s;
+}
+
+
+
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s;
+    transform: scale(1.1);
+}
+
+.product-image:hover {
+    transform: scale(1.1);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.custom-card {
+    width: 250px;
+    margin-bottom: 20px;
+    background-color: rgba(244, 11, 11, 0.552); /* Transparent background */
+    border: 1px solid rgba(238, 37, 37, 0.452); /* Transparent border */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(139, 54, 54, 0.919); /* Transparent shadow */
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s; 
+}
+
+.custom-card:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, #c4cbd0, #c8d1d7);
+}
+
+.custom-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+    transition: transform 0.3s ease-in-out, filter 0.3s;
+}
+
+.custom-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2); 
+}
+
+.custom-card h3 {
+    text-align: center;
+    padding: 30px;
+    margin: 5;
+}
+
+.custom-card-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #c1d8e8;
+    color: #fff;
+    text-decoration: none;
+    border-top: 1px solid #fcf1f1;
+    border-radius: 0 0 8px 8px;
+    transition: background-color 0.3s;
+}
+
+.custom-card-link:hover {
+    background-color: #f3f1f1;
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
