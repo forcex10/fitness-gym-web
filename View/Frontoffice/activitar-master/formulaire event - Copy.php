@@ -1,3 +1,33 @@
+<?php
+// Inclure le fichier du contrôleur
+include ('C:\xampp\htdocs\fitness-gym-web\Controller\EventC.php');
+include ('C:\xampp\htdocs\fitness-gym-web\Controller\Type_eventC.php');
+// Créer une instance du contrôleur
+$eventController = new EventC();
+
+// Fetch events and convert to array
+$eventsStmt = $eventController->listeEvent();
+$events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Tri des événements par date et temps
+usort($events, function ($a, $b) {
+    $dateComparison = strtotime($a['date']) - strtotime($b['date']);
+    
+    if ($dateComparison == 0) {
+        // If dates are the same, compare times
+        return strtotime($a['temps']) - strtotime($b['temps']);
+    }
+
+    return $dateComparison;
+});
+
+$type_eventC = new Type_eventC();
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -22,6 +52,21 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="assets/vendors/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -85,24 +130,47 @@
                 </div>
                 <div class="row blog-gird">
                     <div class="grid-sizer"></div>
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"><i class="text-danger">Evénements</i></h4>
+                  <div class="table-responsive">
+                    <body>             
+                      <table  class="table table-hover">
+                          <tr>
+                          <th>Type d'Evenement</th>
+                          <th>Poster</th>
+
+                          </tr>
+                          <?php
+                            // Afficher les événements dans le tableau
+                            foreach ($events as $event) {
+                            ?>
+                                <tr>
+                                    
+                                    <td>
+                                        <?php
+                                        $type_event = $type_eventC->showType_event($event['type_event']);
+                                        echo $type_event;?>
+                                    </td>
+                                    <td>
+                                        <!-- Affichage de l'image avec un chemin relatif -->
+                                        <img src="uploads/<?php echo basename($event['image']); ?>" alt="Event Image" style="max-width: 200px; max-height: 200px;">
+                                    </td>
+
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                      </table>
+                  </body>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
                 
-                    <!-- Image Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <div class="blog-item large-item set-bg" data-setbg="img/blog/box.jpg" style="width: 100%; height: 50;">
-                            <a class="blog-text">
-                                <div class="categories">BOXING EVENT</div>
-                                <h5>KSI VS LOGAN PAUL 2023/12/16 AT 10PM MENZAH1</h5>
-                            </a>
-                        </div>
-                    </div>
-                
-                    <!-- Map Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2802.143192499356!2d10.185130496979358!3d36.838973484984066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-                            1!3m3!1m2!1s0x12fd3521f4a679fd%3A0x69416f38c0fdffa2!2sStade%20Olympique%20d&#39;El%20Menzah!5e1!3m2!1sfr!2stn!4v1701252353757!5m2!1sfr!2stn"
-                            width="600" height="420" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -112,130 +180,13 @@
         </div>
     </div>
 </section>
+
 <!-- Blog Section End -->
 
-<!-- Blog Section Begin -->
-<section class="blog-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="row blog-gird">
-                    <div class="grid-sizer"></div>
-                
-                    <!-- Image Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <div class="blog-item small-item set-bg" data-setbg="img/blog/run.jpg"style="width: 100%; height: 100;">
-                            <a  class="blog-text">
-                                <div class="categories">MARATHON EVENT</div>
-                                <h5>2023/12/18 AT 8AM MENZAH1</h5>
-                            </a>
-                        </div>
-                    </div>
-                
-                    <!-- Map Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2802.143192499356!2d10.185130496979358!3d36.838973484984066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-                            1!3m3!1m2!1s0x12fd3521f4a679fd%3A0x69416f38c0fdffa2!2sStade%20Olympique%20d&#39;El%20Menzah!5e1!3m2!1sfr!2stn!4v1701252353757!5m2!1sfr!2stn"
-                            width="600" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row blog-gird">
-            <div class="grid-sizer"></div>
 
-        </div>
-    </div>
-</section>
-<!-- Blog Section End -->
 
-<!-- Blog Section Begin -->
-<section class="blog-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="row blog-gird">
-                    <div class="grid-sizer"></div>
-                
-                    <!-- Image Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <div class="blog-item large-item xls-large set-bg" data-setbg="img/blog/blog-page-2.jpg" style="width: 100%; height: 100;">
-                            <a class="blog-text">
-                                <div class="categories">CROSSFIT EVENT</div>
-                                <h5>2023/12/17 AT 9AM MANAR1</h5>
-                            </a>
-                        </div>
-                    </div>
-                
-                    <!-- Map Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6328.588287193719!2d10.141796796832331!3d36.832876901331915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-                        1!3m3!1m2!1s0x12fd3312d9dfed6f%3A0x2b3e065a01842e73!2sEl%20Manar%201%2C%20Tunis!5e1!3m2!1sfr!2stn!4v1701271345619!5m2!1sfr!2stn" 
-                        width="600" height="460" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row blog-gird">
-            <div class="grid-sizer"></div>
-
-        </div>
-    </div>
-</section>
-<!-- Blog Section End -->
-
-<!-- Blog Section Begin -->
-<section class="blog-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="row blog-gird">
-                    <div class="grid-sizer"></div>
-                
-                    <!-- Image Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <div class="blog-item small-item set-bg" data-setbg="img/blog/blog-page-1.jpg" style="width: 100%; height: 100;">
-                            <a  class="blog-text">
-                                <div class="categories">POWER-LIFTING EVENT</div>
-                                <h5>Test your power with us 2023/12/20 AT 10AM in NASR2 </h5>
-                            </a>
-                        </div>
-                    </div>
-                
-                    <!-- Map Column -->
-                    <div class="col-lg-4 col-md-6 grid-item">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3034.5051838823583!2d10.149672075647846!3d36.855269672231636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
-                        1!3m3!1m2!1s0x12fd33493dda1301%3A0x326a3c468858160f!2sEnnasr%202!5e1!3m2!1sfr!2stn!4v1701271489151!5m2!1sfr!2stn" 
-                        width="600" height="260" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row blog-gird">
-            <div class="grid-sizer"></div>
-
-        </div>
-    </div>
-</section>
-<!-- Blog Section End -->
-
-        <!-- Cta Section Begin -->
-        <section class="cta-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="cta-text">
-                            <center><h3>Register Today</h3></center>
-                        </div>
-                        <center><a href="#" class="primary-btn cta-btn">Participate</a></center>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Cta Section End -->
-
-    <!-- Footer Section Begin -->
+        
+    <!-- Footer Section Begin 
     <footer class="footer-section">
         <div class="container">
             <div class="row">
@@ -315,15 +266,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <div class="ct-inside"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <div class="ct-inside"> Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. 
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
+ Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.  </div>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Footer Section End -->
+     Footer Section End -->
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -338,4 +289,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+
+
 

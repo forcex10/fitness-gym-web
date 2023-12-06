@@ -8,8 +8,12 @@ class Event
     private ?string $temps = null;
     private ?string $description = null;
     private ?string $type_event = null;
+    private ?string $image = null;
+    private ?string $lat = null; 
+    private ?string $lng = null; 
 
-    public function __construct($idevent, $nom, $local, $date, $temps, $description, $type_event) 
+
+    public function __construct($idevent, $nom, $local, $date, $temps, $description, $type_event,$image,$lat,$lng) 
     {
         $this->idevent = $idevent;
         $this->nom = $nom;
@@ -18,6 +22,9 @@ class Event
         $this->temps = $temps;
         $this->description = $description;
         $this->type_event = $type_event;
+        $this->image = $image;
+        $this->lat = $lat;
+        $this->lng = $lng; 
     }
     
 
@@ -106,6 +113,41 @@ class Event
     {
         $this->type_event = $type_event;
 
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
         return $this;
     }
 

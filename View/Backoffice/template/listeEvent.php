@@ -24,6 +24,22 @@ usort($events, function ($a, $b) {
 $type_eventC = new Type_eventC();
 ?>
 
+<?php
+require_once ('C:\xampp\htdocs\fitness-gym-web\Controller\Type_eventC.php');
+
+$type_eventC = new Type_eventC();
+
+$idtype_event = ""; // Initialize the variable to store the selected type
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['type_event']) && isset($_POST['search'])) {
+        $idtype_event = $_POST['type_event'];
+        $list = $type_eventC->afficherEvent($idtype_event);
+    }
+}
+
+$type_events = $type_eventC->afficherType_event();
+?>
 
 
 <html lang="en"><head>
@@ -206,12 +222,7 @@ $type_eventC = new Type_eventC();
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="http://localhost/fitness-gym-web/View/Backoffice/template/listeType_event.php">Type Evennements</a></li>
           
-        </ul></div>
-        <div class="collapse" id="evennement" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="http://localhost/fitness-gym-web/View/Backoffice/template/searchEvent.php">Rechercher un Evenement</a></li>
-          
-        </ul></div></li>
+</div></li>
         
         <li class="nav-item menu-items">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#forum" aria-expanded="false">                
@@ -303,7 +314,10 @@ $type_eventC = new Type_eventC();
                   <h4 class="card-title"><i class="text-danger">Evénements</i></h4>
                   <div class="table-responsive">
                     <body>
-                    <center><h2><a href="addEvent.php" class="text-warning">Liste des Evénements</a></h2></center>              
+                    <center><h2><a class="text-warning">Liste des Evénements</a></h2></center>
+                    <br><br>
+                    <button class="btn btn-primary btn-fw"><a href="addEvent.php"class="text-light">Ajouter Evenement</a></button>   
+                    <br><br>           
                       <table  class="table table-hover">
                           <tr>
                               <th>Id Evennement</th>
@@ -313,6 +327,9 @@ $type_eventC = new Type_eventC();
                               <th>Temps</th>
                               <th>Description</th>
                               <th>Type_event</th>
+                              <th>Poster</th>
+                              <th>Latitude</th>
+                              <th>Longitude</th>
                               <th>Update</th>
                               <th>Delete</th>
                           </tr>
@@ -333,9 +350,16 @@ $type_eventC = new Type_eventC();
                                         $type_event = $type_eventC->showType_event($event['type_event']);
                                         echo $type_event;?>
                                     </td>
+                                    <td>
+                                        <!-- Affichage de l'image avec un chemin relatif -->
+                                        <img src="uploads/<?php echo basename($event['image']); ?>" alt="Event Image" style="width: 100px; height: 100px;">
+                                    </td>
+                                    <td><?php echo $event['lat'] ?></td>
+                                    <td><?php echo $event['lng'] ?></td>
+
 
                                     <td align="center">
-                                        <form method="POST" action="updateEvent.php">
+                                        <form method="POST" action="updateEvent.php"  enctype="multipart/form-data">
                                             <input type="submit" name="update" value="Update" class="btn btn-success btn-rounded btn-fw">
                                             <input type="hidden" value=<?PHP echo $event['idevent']; ?> name="idevent">
                                         </form>
@@ -348,6 +372,68 @@ $type_eventC = new Type_eventC();
                             }
                             ?>
                       </table>
+                      <br><br>
+                      <br><br>
+
+                      <div class="container">
+                      <hr>
+                          <form action="" method="POST" class="forms-sample">
+                           <div class="form-group">
+                              <h3 class="text-danger"><center>Chercher un événement</center></h3>
+                              <br><br>
+                              <label for="type_event" class="text-light"></label>
+                              <select name="type_event" id="type_event" class="form-control text-light">
+                              <?php
+                                  foreach ($type_events as $type_event) {
+                                      $selected = ($type_event['idtype_event'] == $idtype_event) ? 'selected' : '';
+                                      echo '<option value="' . $type_event['idtype_event'] . '" ' . $selected . '>' . $type_event['nom'] . '</option>';
+                                  }
+                              ?>
+                  
+                              </select>
+                            </div>
+                              <center><input type="submit" value="Rechercher" name="search" class="btn btn-outline-success btn-fw"></center>
+                          </form>
+                  
+                          <?php if (isset($list)) { ?>
+                      <a  class="text-info">Événements correspondants au type sélectionné :</a>
+                      <br></br>
+                      <ul class="text-warning">
+                      
+                        <table class="table table-hover">
+                          <tr>
+                              <th>Id Evennement</th>
+                              <th>Nom</th>
+                              <th>Localisation</th>
+                              <th>date</th>
+                              <th>Temps</th>
+                              <th>Description</th>
+                              <th>Poster</th>
+                              <th>Latitude</th>
+                              <th>Longitude</th>
+
+                          </tr>
+                          <?php foreach ($list as $event) { ?>
+                                <tr>
+                                    <td><?php echo $event['idevent'] ?> </td>
+                                    <td><?php echo $event['nom'] ?> </td>
+                                    <td><?php echo $event['local'] ?></td>
+                                    <td><?php echo $event['date'] ?></td>
+                                    <td><?php echo $event['temps'] ?></td>
+                                    <td><?php echo $event['description'] ?></td>
+                                    <td>
+                                        <!-- Affichage de l'image avec un chemin relatif -->
+                                        <img src="uploads/<?php echo basename($event['image']); ?>" alt="Event Image" style="width: 100px; height: 100px;">
+                                    </td>
+                                    <td><?php echo $event['lat'] ?></td>
+                                    <td><?php echo $event['lng'] ?></td>
+                                </tr>
+                          <?php } ?>
+                      </ul>
+                  <?php } ?>
+                  </table>
+                      </div>
+
                   </body>
                   </div>
                 </div>

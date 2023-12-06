@@ -1,58 +1,52 @@
 <?php
-require 'C:\xampp\htdocs\fitness-gym-web\Controller\EventC.php';
-require 'C:\xampp\htdocs\fitness-gym-web\Model\Event.php';
+// Inclure le fichier du contrôleur
+include ('C:\xampp\htdocs\fitness-gym-web\Controller\EventC.php');
+include ('C:\xampp\htdocs\fitness-gym-web\Controller\Type_eventC.php');
+// Créer une instance du contrôleur
+$eventController = new EventC();
 
-require_once 'C:/xampp/htdocs/fitness-gym-web/Controller/Type_eventC.php'; 
+// Fetch events and convert to array
+$eventsStmt = $eventController->listeEvent();
+$events = $eventsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$type_eventC = new Type_eventC();  
-$type_events = $type_eventC->listeType_event();
+// Tri des événements par date et temps
+usort($events, function ($a, $b) {
+    $dateComparison = strtotime($a['date']) - strtotime($b['date']);
+    
+    if ($dateComparison == 0) {
+        // If dates are the same, compare times
+        return strtotime($a['temps']) - strtotime($b['temps']);
+    }
 
-// create an instance of the controller
-$eventC = new EventC();
-$error = "";
+    return $dateComparison;
+});
 
-if (isset($_POST["nom"]) && isset($_POST["local"]) && isset($_POST["date"]) && isset($_POST["temps"]) && isset($_POST["description"]) && isset($_POST["type_event"]) && isset($_POST["lat"]) && isset($_POST["lng"])) {
-    if (!empty($_POST['nom']) && !empty($_POST["local"]) && !empty($_POST["date"]) && !empty($_POST["temps"]) && !empty($_POST["description"]) && !empty($_POST["type_event"]) && !empty($_POST["lat"]) && !empty($_POST["lng"])) {
+$type_eventC = new Type_eventC();
+?>
 
-        // Check for file upload success
-        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
-            $uploadDir = 'C:\xampp\htdocs\fitness-gym-web\View\Backoffice\template\uploads\\';
-            $uploadFile = $uploadDir . basename($_FILES['image']['name']);
+<?php
+require_once ('C:\xampp\htdocs\fitness-gym-web\Controller\Type_eventC.php');
 
-            // Move uploaded file to the specified directory
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                // Update the event's image attribute in the database
-                $eventC->updateEventImage($_POST['idevent'], $_FILES['image']['name']);
-                echo "The image has been uploaded and updated successfully.";
-            } else {
-                echo "Error uploading the image.";
-            }
-        }
+$type_eventC = new Type_eventC();
 
-        // Create/update the event
-        $event = new Event(null, $_POST['nom'], $_POST['local'], $_POST['date'], $_POST['temps'], $_POST['description'], $_POST['type_event'], isset($_FILES['image']) ? $_FILES['image']['name'] : null, $_POST['lat'], $_POST['lng']);
-        var_dump($event);
+$idtype_event = ""; // Initialize the variable to store the selected type
 
-        $eventC->updateEvent($event, $_POST['idevent']);
-
-        header('Location:listeEvent.php');
-    } else {
-        $error = "Missing information";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['type_event']) && isset($_POST['search'])) {
+        $idtype_event = $_POST['type_event'];
+        $list = $type_eventC->afficherEvent($idtype_event);
     }
 }
+
+$type_events = $type_eventC->afficherType_event();
 ?>
 
 
-
-
 <html lang="en"><head>
- 
-<head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Corona Admin</title>
-
   <!-- plugins:css -->
   <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -70,7 +64,6 @@ if (isset($_POST["nom"]) && isset($_POST["local"]) && isset($_POST["date"]) && i
   <!-- End layout styles -->
   <link rel="shortcut icon" href="assets/images/favicon.png">
 </head>
-
 <body class="">
   <div class="container-scroller">
     <div class="row p-0 m-0 proBanner d-none d-flex" id="proBanner">
@@ -319,106 +312,135 @@ if (isset($_POST["nom"]) && isset($_POST["local"]) && isset($_POST["date"]) && i
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title"><i class="text-danger">Evénements</i></h4>
-                  <h4 class="card-title" ><center>Update Evenement</center></h4>
-                                <div class="table-responsive">
-                                <body>                  
-                                    <div id="form-container">
-                                        <button class="btn btn-primary btn-fw"><a href="listeEvent.php">Back to list</a></button>
-                                        <hr>
-
-                                        <div id="error">
-                                            <?php echo $error; ?>
-                                        </div>
-
-                                        <?php if (isset($_POST['idevent'])) {
-                                            $event = $eventC->showEvent($_POST['idevent']);
-                                        ?>
-
-                                            <form action="" method="POST" class="forms-sample" enctype="multipart/form-data">
-                                                
-                                                  <div class="form-group">
-                                                        <label for="idevent" class="text-light">idevennement</label>
-                                                        
-                                                            <input type="hidden" id="idevent" name="idevent" class="form-control" value="<?php echo isset($_POST['idevent']) ? $_POST['idevent'] : ''; ?>" readonly />
-
-                                                            </div>        
-                                                  <div class="form-group">
-                                                        <label for="nom" class="text-light">nom:</label>
-                                                        
-                                                            <input type="text" id="nom" name="nom" class="form-control text-light" value="<?php echo $event['nom'] ?>" />
-                                                            <span id="erreurNom" style="color: red"></span>
-                                                  </div>    
-                                                  <div class="form-group">  
-                                                        <label for="local" class="text-light">Localisation :</label>
-                                                        
-                                                            <input type="text" id="local" name="local" class="form-control text-light" value="<?php echo $event['local'] ?>" />
-                                                            <span id="erreurLocal" style="color: red"></span>
-                                                            </div>       
-                                                  <div class="form-group">
-                                                        <label for="date" class="text-light">Date :</label>
-                                                        
-                                                            <input type="date" id="date" name="date" class="form-control text-light" value="<?php echo $event['date'] ?>" />
-                                                            <span id="erreurDate" style="color: red"></span>
-                                                            </div>     
-                                                  <div class="form-group">
-                                                        <label for="temps" class="text-light">Temps :</label>
-                                                        
-                                                            <input type="time" id="temps" name="temps" class="form-control text-light" value="<?php echo $event['temps'] ?>" />
-                                                            <span id="erreurDate" style="color: red"></span>
-                                                            </div>   
-                                                  <div class="form-group">
-                                                        <label for="description" class="text-light">Description :</label>
-                                                        
-                                                            <input type="text" id="description" name="description" class="form-control text-light" value="<?php echo $event['description'] ?>" />
-                                                            <span id="erreurDescription" style="color: red"></span>
-                                                            </div>   
-                                                  <div class="form-group">
-                                                        <label for="type_event" class="text-light">Type_event :</label>
-                                                        
-                                                            <select id="type_event" name="type_event" class="form-control text-light" required>
-                                                                <?php
-                                                                foreach ($type_events as $type_event) {
-                                                                    $selected = ($type_event['idtype_event'] == $event['type_event']) ? 'selected' : '';
-                                                                    echo '<option value="' . $type_event['idtype_event'] . '" ' . $selected . '>' . $type_event['nom'] . '</option>';
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                            <span id="erreur_type_event" style="color: red"></span>
-                                                        
-                                                            </div> 
-
-                                                            <div class="form-group">
-                                                                <label for="image" class="text-light">Poster :</label>
-                                                                <input type="file" id="image" name="image" class="form-control text-light" />
-                                                                <span id="erreurImage" style="color: red"></span>
-                                                            </div>
+                  <div class="table-responsive">
+                    <body>
 
 
-                                                        <div class="form-group">
-                                                        <label for="lat" class="text-light">Latitude :</label>
-                                                        
-                                                            <input type="float" id="lat" name="lat" class="form-control text-light" value="<?php echo $event['lat'] ?>" />
-                                                            <span id="erreurLat" style="color: red"></span>
-                                                            </div>   
 
-                                                        <div class="form-group">
-                                                        <label for="lng" class="text-light">Longitude:</label>
-                                                        
-                                                            <input type="float" id="lng" name="lng" class="form-control text-light" value="<?php echo $event['lng'] ?>" />
-                                                            <span id="erreurLng" style="color: red"></span>
-                                                            </div>   
-                                                        
-                                                            <input type="submit" value="Save" class="btn btn-outline-primary btn-icon-text" class="mdi mdi-file-check btn-icon-prepend">
-                                                        
-                                                        
-                                                            <input type="reset" value="Reset" class="btn btn-outline-warning btn-icon-text" class="mdi mdi-reload btn-icon-prepend">
-                                                        
-                                                  
-                                            </form>
-                                        <?php } ?>
-                                    </div>
-                                    </body>
-                                </div>
+                    
+<br><br>
+<br><br>
+
+
+
+                    <center><h2><a href="addEvent.php" class="text-warning">Liste des Evénements</a></h2></center>              
+                      <table  class="table table-hover">
+                          <tr>
+                              <th>Id Evennement</th>
+                              <th>Nom</th>
+                              <th>Localisation</th>
+                              <th>date</th>
+                              <th>Temps</th>
+                              <th>Description</th>
+                              <th>Type_event</th>
+                              <th>Poster</th>
+                              <th>Latitude</th>
+                              <th>Longitude</th>
+                              <th>Update</th>
+                              <th>Delete</th>
+                          </tr>
+                  
+                          <?php
+                            // Afficher les événements dans le tableau
+                            foreach ($events as $event) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $event['idevent'] ?> </td>
+                                    <td><?php echo $event['nom'] ?> </td>
+                                    <td><?php echo $event['local'] ?></td>
+                                    <td><?php echo $event['date'] ?></td>
+                                    <td><?php echo $event['temps'] ?></td>
+                                    <td><?php echo $event['description'] ?></td>
+                                    <td>
+                                        <?php
+                                        $type_event = $type_eventC->showType_event($event['type_event']);
+                                        echo $type_event;?>
+                                    </td>
+                                    <td>
+                                        <!-- Affichage de l'image avec un chemin relatif -->
+                                        <img src="uploads/<?php echo basename($event['image']); ?>" alt="Event Image" style="width: 100px; height: 100px;">
+                                    </td>
+                                    <td><?php echo $event['lat'] ?></td>
+                                    <td><?php echo $event['lng'] ?></td>
+
+
+                                    <td align="center">
+                                        <form method="POST" action="updateEvent.php"  enctype="multipart/form-data">
+                                            <input type="submit" name="update" value="Update" class="btn btn-success btn-rounded btn-fw">
+                                            <input type="hidden" value=<?PHP echo $event['idevent']; ?> name="idevent">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-fw" href="deleteEvent.php?idevent=<?php echo $event['idevent']?>"> DELETE </a> 
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                      </table>
+
+
+
+                      <div class="container">
+                      <hr>
+                          <form action="" method="POST" class="forms-sample">
+                           <div class="form-group">
+                              <a>Chercher un événement:</a>
+                              <br><br>
+                              <label for="type_event" class="text-light"></label>
+                              <select name="type_event" id="type_event" class="form-control text-light">
+                              <?php
+                                  foreach ($type_events as $type_event) {
+                                      $selected = ($type_event['idtype_event'] == $idtype_event) ? 'selected' : '';
+                                      echo '<option value="' . $type_event['idtype_event'] . '" ' . $selected . '>' . $type_event['nom'] . '</option>';
+                                  }
+                              ?>
+                  
+                              </select>
+                            </div>
+                              <input type="submit" value="Rechercher" name="search" class="btn btn-outline-success btn-fw">
+                          </form>
+                  
+                          <?php if (isset($list)) { ?>
+                      <a  class="text-info">Événements correspondants au type sélectionné :</a>
+                      <br></br>
+                      <ul class="text-warning">
+                      
+                        <table class="table table-hover">
+                          <tr>
+                              <th>Id Evennement</th>
+                              <th>Nom</th>
+                              <th>Localisation</th>
+                              <th>date</th>
+                              <th>Temps</th>
+                              <th>Description</th>
+                              <th>Poster</th>
+                              <th>Latitude</th>
+                              <th>Longitude</th>
+
+                          </tr>
+                          <?php foreach ($list as $event) { ?>
+                                <tr>
+                                    <td><?php echo $event['idevent'] ?> </td>
+                                    <td><?php echo $event['nom'] ?> </td>
+                                    <td><?php echo $event['local'] ?></td>
+                                    <td><?php echo $event['date'] ?></td>
+                                    <td><?php echo $event['temps'] ?></td>
+                                    <td><?php echo $event['description'] ?></td>
+                                    <td>
+                                        <!-- Affichage de l'image avec un chemin relatif -->
+                                        <img src="uploads/<?php echo basename($event['image']); ?>" alt="Event Image" style="width: 100px; height: 100px;">
+                                    </td>
+                                    <td><?php echo $event['lat'] ?></td>
+                                    <td><?php echo $event['lng'] ?></td>
+                                </tr>
+                          <?php } ?>
+                      </ul>
+                  <?php } ?>
+                  </table>
+                      </div>
+                  </body>
+                  </div>
                 </div>
               </div>
             </div>
