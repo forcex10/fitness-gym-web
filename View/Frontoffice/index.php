@@ -1,5 +1,13 @@
 <?php
     include "C:/xampp/htdocs/fitness-gym-web/Controller/TypeAbonnementC.php";
+    include "C:/xampp/htdocs/fitness-gym-web/Controller/PanierC.php";
+    $id_client=6;
+    $panierC = new PanierC();
+    $listee = $panierC->showPanierClient($id_client);
+    $quant=0;
+    foreach ($listee as $p ) : 
+        $quant+=$p['quantite']; 
+    endforeach;
     $TypeAbonnementC = new TypeAbonnementC();
     $list = $TypeAbonnementC->listTypeAbonnement();
 ?>
@@ -9,6 +17,11 @@
 <html lang="zxx">
 
 <head>
+    <style>
+        .toti2,.badge{
+        color :white;
+    }
+    </style>
     <meta charset="UTF-8">
     <meta name="description" content="Activitar Template">
     <meta name="keywords" content="Activitar, unica, creative, html">
@@ -133,7 +146,8 @@
                 </a>
             </div>
             <div class="top-social">
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                <a href="listePanier.php"><img src="img/panier2.png"></a>
+                <label class="badge" id="badge"><?php  echo $quant; ?></label>
                 <a href="#"><i class="fa fa-linkedin"></i></a>
                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                 <a href="#"><i class="fa fa-youtube-play"></i></a>

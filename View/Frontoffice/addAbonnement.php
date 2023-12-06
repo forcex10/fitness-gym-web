@@ -36,7 +36,7 @@ if (isset($_POST['cour']) && isset($_POST['type']) && isset($_POST['methode']))
 
         }
         $abonnementC->addAbonnement($abonnement);
-        header('Location:index2.php');
+        header('Location:index.php');
 
     }
     

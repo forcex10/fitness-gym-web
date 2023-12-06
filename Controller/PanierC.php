@@ -1,5 +1,5 @@
 <?php
-require "C:/xampp/htdocs/fitness-gym-web/config.php" ;
+require_once "C:/xampp/htdocs/fitness-gym-web/config.php" ;
 class PanierC
 {
     public function listPanier()
@@ -31,34 +31,48 @@ class PanierC
     public function addPanier($panier)
     {
         $sql = "INSERT INTO panier
-        VALUES (NULL,:id_produit,:quantite)";
+        VALUES (NULL,:id_client,:id_produit,:quantite,:totale)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
             'id_produit'=> $panier->getIdProduit(),
+            'id_client'=> $panier->getIdClient(),
             'quantite' => $panier->getQuantite(),
+            'totale' => $panier->getTotale(),
         ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
             }
     }
 
-    public function afficheProduit($id_produit)
+    function updatePanier($panier, $id_panier)
     {
-        try {
-            $pdo=config::getConnexion();
-            $query=$pdo->prepare("SELECT * FROM produit WHERE id_produit=:id");
-            $query->execute(['id'=>$id_produit]);
-            return $query->fetchAll();
+        $sql = "UPDATE panier SET 
+                    id_client = :id_client,
+                    id_produit = :id_produit,
+                    quantite= :quantite,
+                    totale= :totale
+                WHERE id_panier = :id";
 
-        }catch(PDOException $e ){ echo $e->getMessage()}
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([
+                'id_client' => $panier->getIdClient(),
+                'id_produit' => $panier->getIdProduit(),
+                'quantite' => $panier->getQuantite(),
+                'totale' => $panier->getTotale(),
+                'id' =>$id_panier
+            ]);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
     }
 
-    /*
-    function showAbonnement($id_Abonnement)
+    function showPanierPanier($id_panier)
     {
-        $sql = "SELECT * from abonnements where Id_abonnement = $id_Abonnement";
+        $sql = "SELECT * from panier where id_panier=$id_panier ";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -70,55 +84,36 @@ class PanierC
         }
     }
 
-    function updateAbonnement($abonnement, $id_abonnement)
-    {
-        $sql = "UPDATE abonnements SET 
-                    username = :username,
-                    cour = :cour,
-                    type = :type,
-                    methode = :methode,
-                    num_cb = :num_cb,
-                    titulaire_cb = :titulaire_cb,
-                    exp_cb = :exp_cb,
-                    cvv_cb = :cvv_cb,
-                    num_visa = :num_visa,
-                    titulaire_visa = :titulaire_visa,
-                    exp_visa = :exp_visa,
-                    cvv_visa = :cvv_visa,
-                    num_mc = :num_mc,
-                    exp_mc = :exp_mc,
-                    cvv_mc = :cvv_mc,
-                    num_edinar = :num_edinar,
-                    code_edinar = :code_edinar
-                WHERE Id_abonnement = :id";
 
+
+    
+    function showPanier($id_client,$id_produit)
+    {
+        $sql = "SELECT * from panier where id_produit =$id_produit AND id_client=$id_client ";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->execute([
-                'username' => $abonnement->getUsername(),
-                'cour' => $abonnement->getCour(),
-                'type' => $abonnement->getType(),
-                'methode' => $abonnement->getMethode(),
-                'num_cb' => $abonnement->getNumCb(),
-                'titulaire_cb' => $abonnement->getTitulaireCb(),
-                'exp_cb' => $abonnement->getExpCb(),
-                'cvv_cb' => $abonnement->getCvvCb(),
-                'num_visa' => $abonnement->getNumVisa(),
-                'titulaire_visa' => $abonnement->getTitulaireVisa(),
-                'exp_visa' => $abonnement->getExpVisa(),
-                'cvv_visa' => $abonnement->getCvvVisa(),
-                'num_mc' => $abonnement->getNumMc(),
-                'exp_mc' => $abonnement->getExpMc(),
-                'cvv_mc' => $abonnement->getCvvMc(),
-                'num_edinar' => $abonnement->getNumEdinar(),
-                'code_edinar' => $abonnement->getCodeEdinar(),
-                'id' => $id_abonnement
-            ]);
+            $query->execute();
+            $abonnement = $query->fetch();
+            return $abonnement;
         } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            die('Error: ' . $e->getMessage());
         }
-    }*/
+    }
+
+    function showPanierClient($id_client)
+    {
+        $sql = "SELECT * from panier where id_client=$id_client ";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $abonnement = $query->fetchALL();
+            return $abonnement;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 
     
 

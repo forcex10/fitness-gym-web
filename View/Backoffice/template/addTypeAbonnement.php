@@ -219,6 +219,20 @@ if (isset($_POST['nom']) && isset($_POST['duree']) && isset($_POST['prix']))
               <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Commentaires</a></li>
           
         </ul></div></li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-bs-toggle="collapse" href="#commande" aria-expanded="true">                
+            <span class="menu-icon">
+              <i class="mdi mdi-playlist-play"></i>
+            </span>
+            <span class="menu-title">Gestion <br> Commande</span>
+              <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="commande" style="">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="listeCommande.php">Commande</a></li>
+          
+        </ul></div>
+      </li>
       </ul>
     </nav>
     <!-- partial -->
