@@ -1,5 +1,6 @@
 <?php
 require "C:/xampp/htdocs/fitness-gym-web/controller/clientC.php";
+session_start();
 $UserC= new UserC();
 $list=$UserC->listClients();
 ?>
@@ -65,17 +66,17 @@ $list=$UserC->listClients();
           <div class="profile-desc">
             <div class="profile-pic">
               <div class="count-indicator">
-                <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
+                <img class="img-xs rounded-circle " src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                <h5 class="mb-0 font-weight-normal"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></h5>
                 <span>Gold Member</span>
               </div>
             </div>
             <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-              <a href="#" class="dropdown-item preview-item">
+              <a href="profileAdmin.php" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="mdi mdi-settings text-primary"></i>
@@ -86,16 +87,7 @@ $list=$UserC->listClients();
                 </div>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
-                    <i class="mdi mdi-onepassword  text-info"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                </div>
-              </a>
+             
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -114,7 +106,7 @@ $list=$UserC->listClients();
           <span class="nav-link">Navigation</span>
         </li>
         <li class="nav-item menu-items active">
-          <a class="nav-link">
+          <a class="nav-link" >
             <span class="menu-icon">
               <i class="mdi mdi-speedometer"></i>
             </span>
@@ -207,6 +199,24 @@ $list=$UserC->listClients();
               <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Commentaires</a></li>
           
         </ul></div></li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-icon">
+              <i class="mdi mdi-security"></i>
+            </span>
+            <span class="menu-title">User Pages</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="GestionUser.php"> clients </a></li>
+              <li class="nav-item"> <a class="nav-link" href="listAdmin.php"> admins </a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../../FrontOffice/registerAdmin.php"> ajouter admin </a></li>
+              <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+              <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li> -->
+            </ul>
+          </div>
+        </li>
       </ul>
     </nav>
     <!-- partial -->
@@ -229,26 +239,17 @@ $list=$UserC->listClients();
             <li class="nav-item dropdown">
               <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="navbar-profile">
-                  <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                  <img class="img-xs rounded-circle" src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-settings text-success"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Settings</p>
-                  </div>
-                </a>
+         
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
+                <a href="../../../FrontOffice/logout.php" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-logout text-danger"></i>
@@ -258,8 +259,7 @@ $list=$UserC->listClients();
                     <p class="preview-subject mb-1">Log out</p>
                   </div>
                 </a>
-                <div class="dropdown-divider"></div>
-                <p class="p-3 mb-0 text-center">Advanced settings</p>
+             
               </div>
             </li>
           </ul>
@@ -542,72 +542,7 @@ $list=$UserC->listClients();
               </div>
             </div>
           </div>
-          <div class="row ">
-            <div class="col-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Order Status</h4>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                         
-                          <th>ID</th>
-                          <th> Client Name </th>
-                          <th> Email </th>
-                          <th> Téléphone</th>
-                          <th> Type d'utilisateur </th>
-                          <th> Diplôme </th>
-                          <th> Projet récent </th>
-                          <th> Update</th>
-                          <th> Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                       
-                          <?php
-            foreach($list as $j) {
-        ?>
-            <tr>
-                <td><?php echo $j['id_client'] ?></td>
-                <td><img src="../../../FrontOffice/<?php echo $j['pdp'] ?>" alt="photo d'utilisateur" style="max-width: 100px; max-height: 100px;">
-                <span><?php echo $j['nom']?></span>
-                <span><?php echo $j['prenom']?></span>
-                
-              </td>
-                <td><?php echo $j['email']?></td>
-                <td><?php echo $j['tel']?></td>
-                <td><?php echo $j['typee']?></td>
-                <td><?php echo $j['diplome']?></td>
-                <td><?php echo $j['projetRc']?></td>
-                <td>
-                  
-                    <form method="POST" action="Update.php">
-                    
-                    <input type="submit" name="update" class="btn btn-outline-success btn-fw" value="Update">
-                   
-                   
-                    <input type="hidden" value=<?PHP echo $j['id_client']; ?> name="id_client">
-                </form>
-              
-               
-                </td>
-                <td>
-                
-                    <a href="deleteUser.php?id_client=<?php echo $j['id_client'];?>"> <div class="btn btn-outline-danger btn-fw">Delete</div></a>
-                </td>
-            </tr>
-        <?php  
-            }
-            ?>
-                         
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
           <div class="row">
             <div class="col-md-6 col-xl-4 grid-margin stretch-card">
               <div class="card">

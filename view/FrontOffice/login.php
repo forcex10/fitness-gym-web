@@ -1,7 +1,12 @@
 <?php
 session_start();
 
+
+require "logoogle.php";
 require "C:/xampp/htdocs/fitness-gym-web/controller/clientC.php";
+
+
+
 $userC= new UserC();
 $errors = array();
 
@@ -13,32 +18,68 @@ if(isset($_POST['recup'])){
 
 
 if($user!=NULL){
-    if($_POST['password']){
+    if(isset($_POST['password'])){
         if(password_verify($_POST['password'],$user['passworde'])){
+          if (isset($_POST['remember']) && $_POST['remember'] == 'on') {
+            // Utilisateur a coché la case "Se souvenir de moi"
+            setcookie("email", $_POST['email'], time() + 30 * 24 * 3600,'/','localhost',false,true);
+            setcookie("password", $_POST['password'], time() + 30 * 24 * 3600,'/','localhost',false,true);}
+
             $_SESSION['id']=$user['id_client'];
             $_SESSION['nom']=$user['nom'];
             $_SESSION['prenom']=$user['prenom'];
-            $_SESSION['password']=$user['passworde'];
+            $_SESSION['password']=$_POST['password'];
             $_SESSION['email']=$user['email'];
             $_SESSION['tel']=$user['tel'];
             $_SESSION['pdp']=$user['pdp'];
-            header('Location:activitar-master/index.html');
+            $_SESSION['type']=$user['typee'];
+            if($user['typee']=="clientV"){
+            header('Location:activitar-master/index.html');}
+            else if($user['typee']=="client"){
+              $errors['verif'] = 'verifiez votre compte.';
+            }
+             if($user['typee']==="admin"){
+              header('Location:../BackOffice/Backoffice/template/listUser.php');
+            }
     
     
+        }
+        else{
+          $errors['password'] = 'mot de passe incorrect.';
         }
     }
    
              
-      else{
-        $errors['password'] = 'mot de passe incorrect.';
-      }
+     
     }
       
-  else{
+ else if( isset($_COOKIE['email'],$_COOKIE['password'])){
+    $user=$userC->elementExists($_COOKIE['email']);
+    $_SESSION['id']=$user['id_client'];
+    $_SESSION['nom']=$user['nom'];
+    $_SESSION['prenom']=$user['prenom'];
+    $_SESSION['password']=$user['passworde'];
+    $_SESSION['email']=$user['email'];
+    $_SESSION['tel']=$user['tel'];
+    $_SESSION['pdp']=$user['pdp'];
+    
+    if($user['typee']=="clientV"){
+      header('Location:activitar-master/index.html');}
+      else if($user['typee']=="client"){
+        $errors['verif'] = 'verifiez votre compte.';
+      }
+       if($user['typee']==="admin"){
+        header('Location:../BackOffice/Backoffice/template/listUser.php');
+      }
+
+    
+  }
+  else {
     $errors['email'] = 'Email inexistant';
   }
  
     }
+
 
 }
 // else{
@@ -63,7 +104,7 @@ if($user!=NULL){
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/style.css">
+    <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/style1R.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/favicon.png" />
   </head>
@@ -74,25 +115,28 @@ if($user!=NULL){
           <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
+              <p style="color: green"><?php echo isset($errors['verif']) ? $errors['verif'] : '';?></p>
                 <h3 class="card-title text-left mb-3">Login</h3>
                 <form  action="" method="post">
 
                   <div class="form-group">
+                 
+
                     <label>email *</label>
-                    <input type="text" class="form-control p_input" placeholder=" Email" name="email" id="email">
+                    <input type="text" class="form-control p_input" placeholder=" Email" name="email" id="email" value= "<?php echo isset($_COOKIE['email']) ? $_COOKIE['email'] : ''; ?>">
                     <span><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></span> 
                   </div>
 
                   <div class="form-group">
                     <label>Password *</label>
-                    <input type="password" class="form-control p_input" placeholder="Password" name="password" id="password">
+                    <input type="password" class="form-control p_input" placeholder="Password" name="password" id="password" value= "<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
                     <span id="erreur"><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></span>
                   </div>
 
                   <div class="form-group d-flex align-items-center justify-content-between">
                     <div class="form-check">
                       <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"> Remember me </label>
+                        <input type="checkbox" name="remember" id="remember"class="form-check-input"> Remember me </label>
                     </div>
 
                     <a href="mdpOublié.php" class="forgot-pass">Forgot password</a>
@@ -103,8 +147,9 @@ if($user!=NULL){
                   <div class="d-flex">
                     <button class="btn btn-facebook me-2 col">
                       <i class="mdi mdi-facebook"></i> Facebook </button>
-                    <button class="btn btn-google col">
-                      <i class="mdi mdi-google-plus"></i> Google plus </button>
+                    <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&response_type=code&redirect_uri=<?= urlencode('http://localhost/fitness-gym-web/view/FrontOffice/google.php'); ?>&client_id= '208090102666-tu5qsjqvnfcuktkk0od63ca49ju8s9n9.apps.googleusercontent.com'">
+                                  <!-- <button class="btn btn-google col"> -->
+                      <i class="mdi mdi-google-plus"></i> Google plus </a>
                   </div>
                   <p class="sign-up">Don't have an Account?<a href="register.php"> Sign Up</a></p>
                 </form>

@@ -25,6 +25,13 @@ if (
         !empty($_POST["email"]) &&
         !empty($_POST["tel"])
     ) {
+      $_SESSION['nom']=$_POST['nom'];
+    $_SESSION['prenom']= $_POST['prenom'];
+    $_SESSION['password']=$_POST['password'];
+    $_SESSION['email']=  $_POST['email'];
+    $_SESSION['tel']=  $_POST['tel'];
+    
+
         $user = new User(
             $_POST['nom'],
             $_POST['prenom'],
@@ -39,6 +46,7 @@ if (
         );
 
         $userC->updateUser($user, $id);
+        header('Location:Compte.php');
     } else
         $error = "Missing information";
 }
@@ -217,4 +225,5 @@ if (isset($id)) {
 
 <?php
 }
+else{}
 ?>

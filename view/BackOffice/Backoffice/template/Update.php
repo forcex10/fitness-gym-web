@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require "C:/xampp/htdocs/fitness-gym-web/controller/clientC.php";
 require "C:/xampp/htdocs/fitness-gym-web/model/user.php";
 $error = "";
@@ -25,6 +26,7 @@ if (
         foreach ($_POST as $key => $value) {
             echo "Key: $key, Value: $value<br>";
         }
+        $user1 = $userC->showClient($_POST['id_client']);
         $user = new User(
             $_POST['nom'],
             $_POST['prenom'],
@@ -42,8 +44,11 @@ if (
         var_dump($user);
         $userC->updateUser($user, $_POST['id_client']);
         var_dump($user);
-
-        header('Location:listUser.php');
+          if($user1['typee']=="client"){
+        header('Location:GestionUser.php');}
+        else if($user1['typee']=="admin"){
+          header('Location:listAdmin.php');
+        }
     } else
         $error = "Missing information";
 }
@@ -61,7 +66,8 @@ if (
 </head>
 
 <body>
-    <button><a href="listUser.php">Back to list</a></button>
+   
+    <button><a href="GestionUser.php">Back to list</a></button>
     <hr>
 
     <div id="error">
@@ -72,7 +78,9 @@ if (
     if (isset($_POST['id_client'])) {
         $user = $userC->showClient($_POST['id_client']);
         
+        
     ?>
+
 
 
 <html lang="en"><head>
@@ -131,17 +139,16 @@ if (
           <div class="profile-desc">
             <div class="profile-pic">
               <div class="count-indicator">
-                <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
+              <img class="img-xs rounded-circle " src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
-                <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                <h5 class="mb-0 font-weight-normal"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></h5>
                 <span>Gold Member</span>
-              </div>
             </div>
             <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-              <a href="#" class="dropdown-item preview-item">
+              <a href="profileAdmin.php" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="mdi mdi-settings text-primary"></i>
@@ -152,16 +159,7 @@ if (
                 </div>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-dark rounded-circle">
-                    <i class="mdi mdi-onepassword  text-info"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-                </div>
-              </a>
+              
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -179,8 +177,8 @@ if (
         <li class="nav-item nav-category">
           <span class="nav-link">Navigation</span>
         </li>
-        <li class="nav-item menu-items active">
-          <a class="nav-link" href="index.html">
+        <li class="nav-item menu-items ">
+          <a class="nav-link" href="listUser.php">
             <span class="menu-icon">
               <i class="mdi mdi-speedometer"></i>
             </span>
@@ -196,7 +194,7 @@ if (
 </span>
             <i class="menu-arrow"></i>
           </a>
-          <div class="collapse show" id="ui-basic" style="">
+          <div class="collapse " id="ui-basic" style="">
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Cours</a></li>
               <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Categorie Cours</a></li>
@@ -273,6 +271,24 @@ if (
               <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Commentaires</a></li>
           
         </ul></div></li>
+        <li class="nav-item menu-items active">
+          <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-icon">
+              <i class="mdi mdi-security"></i>
+            </span>
+            <span class="menu-title">User Pages</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse show" id="auth">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item "> <a class="nav-link" href="GestionUser.php"> clients </a></li>
+              <li class="nav-item"> <a class="nav-link" href="listAdmin.php"> admins </a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../registerAdmin"> ajouter admin </a></li>
+              <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+              <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li> -->
+            </ul>
+          </div>
+        </li>
       </ul>
     </nav>
     <!-- partial -->
@@ -295,24 +311,15 @@ if (
             <li class="nav-item dropdown">
               <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="navbar-profile">
-                  <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                <img class="img-xs rounded-circle" src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?> </p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-settings text-success"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <p class="preview-subject mb-1">Settings</p>
-                  </div>
-                </a>
+     
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
@@ -324,8 +331,7 @@ if (
                     <p class="preview-subject mb-1">Log out</p>
                   </div>
                 </a>
-                <div class="dropdown-divider"></div>
-                <p class="p-3 mb-0 text-center">Advanced settings</p>
+      
               </div>
             </li>
           </ul>

@@ -34,7 +34,20 @@ class UserC{
 
     public function listClients()
 {
-$sql = "SELECT * FROM client";
+$sql = "SELECT * FROM client WHERE typee='clientV' ";
+$db = config::getConnexion();
+try {
+$liste = $db->query($sql);
+return $liste;
+}
+ catch (Exception $e) {
+die('Error:' . $e->getMessage());
+}
+}
+
+public function listAdmins()
+{
+$sql = "SELECT * FROM client WHERE typee='admin' ";
 $db = config::getConnexion();
 try {
 $liste = $db->query($sql);

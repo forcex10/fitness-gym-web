@@ -1,9 +1,68 @@
 <?php
 require "C:/xampp/htdocs/fitness-gym-web/model/user.php";
 require "C:/xampp/htdocs/fitness-gym-web/controller/clientC.php";
+require "verification.php";
+require "glogin/vendor/autoload.php";
+// $ClientID='1027100832817-n6leul07oviemraqklq73b8si3ogfj38.apps.googleusercontent.com';
+// $ClientSecret='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';
+// $redirectUrl='http://localhost/htdocs/fitness-gym-web/view/FrontOffice/register.php';
+
+// $client = new Google_Client();
+// $client->setClientID($ClientID);
+// $client->setClientSecret($ClientSecret);
+// $client->addScope('email');
+// $client->addScope('name');
+// $client->addScope('profile');
+// $client->setRedirectUri($redirectUrl);
+// // offline access will give you both an access and refresh token so that
+// // your app can refresh the access token without user interaction.
+// $client->setAccessType('online');
+// // Using "consent" will prompt the user for consent
+// $client->setPrompt('consent');
+// $client->setIncludeGrantedScopes(true);   // incremental auth
+
+// $auth_url = $client->createAuthUrl();
+// if(isset($_GET['code'])){
+
+// }
+// else{
+//   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+// }
+
+
+
+session_start();
 
 $userC = new UserC();
 $errors = array();
+
+
+$recaptcha_secret = "6LfpYyMpAAAAAOhMukBZuZvUdxvVLrhC0LFSD5uP";
+if(isset($_POST['g-recaptcha-response'])){
+// Vérifier la réponse reCAPTCHA
+$recaptcha_response = $_POST['g-recaptcha-response'];
+$url = 'https://www.google.com/recaptcha/api/siteverify';
+$data = [
+    'secret' => $recaptcha_secret,
+    'response' => $recaptcha_response,
+];
+
+$options = [
+    'http' => [
+        'header' => "Content-type: application/x-www-form-urlencoded/r/n",
+        'method' => 'POST',
+        'content' => http_build_query($data),
+    ],
+];
+
+$context = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+$result_data = json_decode($result, true);
+}
+else{
+  echo"";
+}
+
 
 if (
     isset($_POST['lastName']) &&
@@ -13,6 +72,10 @@ if (
     isset($_POST['password']) 
    
 ) {
+  if ($result_data['success']) {
+    // La réponse reCAPTCHA est valide, traiter le formulaire normalement
+    // ...
+}
    if(isset($_FILES['pdp']) && $_FILES['pdp']['error'] == 0){
         if($userC->elementExists($_POST['email'])!=NULL){
             $errors['email'] = 'Email déjà existant.';
@@ -29,11 +92,19 @@ if (
 
     // Move the uploaded file to the target directory
                     if (move_uploaded_file($_FILES['pdp']['tmp_name'], $targetFile)) {
+                      if ($result_data['success']) {
+                                                // La réponse reCAPTCHA est valide, traiter le formulaire normalement
+                        // ...
+                    
                                 // File upload successful, store the filename in the database or use it as needed
                                 $pdpFilename = $targetFile;
 
                                 // Rest of your existing code...
                                 $passwordH=password_hash($_POST['password'],PASSWORD_DEFAULT);
+
+                           
+
+
                                 $client1 = new User(
                                     $_POST['firstName'],
                                     $_POST['lastName'],
@@ -48,10 +119,27 @@ if (
                                 );
 
                                 $newc = $userC->addClient($client1);
-                               // $id=$userC->elementExists($_POST['email']);
-                                echo '<div style="color: green; font-weight: bold;">Compte ajouté avec succès.</div>';
-                               // header('Location: site2/Compte.php?id_client='.$id);
+                          
                                 
+                                $_SESSION['nom']=$_POST['lastName'];
+                                $_SESSION['prenom']= $_POST['firstName'];
+                                $_SESSION['password']=$_POST['password'];
+                                $_SESSION['email']=$_POST['email'];
+                                $_SESSION['tel']=$_POST['phone'];
+                                $_SESSION['pdp']=$pdpFilename;
+                                $_SESSION['type']="client";
+
+                               // $id=$userC->elementExists($_POST['email']);
+                               email_send($_POST['email']);
+                               $errors['verif'] = 'compte ajouté ,verifiez votre email.';
+                               
+                              
+                                
+                      }
+                      else{
+                        $errors['captcha'] ="erreur captcha...";
+                      }
+
                               
                     } 
                                                                                                                 
@@ -59,6 +147,7 @@ if (
                         // File upload failed
                         $errors['pdp'] = 'Erreur de telechargement de photo.';
                     }
+                    
             }
     }
    else{
@@ -77,6 +166,7 @@ if (
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -90,7 +180,7 @@ if (
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/style.css">
+    <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/styleL.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/favicon.png" />
   </head>
@@ -138,16 +228,22 @@ if (
                   <input type="password" id="password" class="form-control p_input" name="password">
                    <span class="error-message" id="passwordError"></span>
                   </div>
-
+                 
+                  
                   <div class="form-group">                    
                 <label for="confirmPassword">Confirmer le mot de passe:</label>
                 <input type="password" id="confirmPassword" class="form-control p_input" name="confirmPassword">
                 <span class="error-message" id="confirmPasswordError"> </span>
                   </div>
+
+                  <div class="form-group"> 
+                  <div class=" g-recaptcha" data-sitekey="6LfpYyMpAAAAAGwpCXHC5aE21i7w1B2-3KJFMuqC"></div>
+                  <span class="error-message" id="captchaError" ><?php echo isset($errors['captcha']) ? $errors['captcha'] : ''; ?></span>
+                  </div>
                 
                   
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block enter-btn">Submit</button>
                   </div>
                  
                  
@@ -211,13 +307,13 @@ function validateForm() {
         return;
     }
 
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var emailRegex = /^[^/s@]+@[^/s@]+/.[^/s@]+$/;
     if (!emailRegex.test(email.value)) {
         displayErrorMessage('emailError', 'Veuillez entrer une adresse e-mail valide.');
         return;
     }
 
-    var phoneRegex = /^\d{10}$/;
+    var phoneRegex = /^/d{10}$/;
     if (!phoneRegex.test(phone.value)) {
         displayErrorMessage('phoneError', 'Veuillez entrer un numéro de téléphone valide.');
         return;
