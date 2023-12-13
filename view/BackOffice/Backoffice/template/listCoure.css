@@ -1,0 +1,59 @@
+/* listCour.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+center {
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 70%;
+    margin: 20px auto;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a {
+    text-decoration: none;
+}
+
+.update-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Added transition effect */
+}
+
+.delete-link {
+    color: rgb(255, 42, 0);
+}
+
+button:hover {
+    background-color: #179650;
+}
+
+.update-btn:hover {
+    transform: scale(1.2); /* Optional: Scale the button on hover for a zoom effect */
+    background-color: #179650;
+}
+
+.update-btn:active {
+    transform: scale(0.9); /* Optional: Scale the button on click for a pressed effect */
+}

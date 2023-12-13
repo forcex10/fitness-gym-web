@@ -1,4 +1,5 @@
 <?php
+
 require "C:/xampp/htdocs/fitness-gym-web/model/user.php";
 require "C:/xampp/htdocs/fitness-gym-web/controller/clientC.php";
 require "verification.php";
@@ -113,9 +114,8 @@ if (
                                     NULL,
                                     $passwordH,
                                     "client",
-                                    $pdpFilename, // Use the filename in the User object
-                                    NULL,
-                                    NULL
+                                    $pdpFilename // Use the filename in the User object
+                                    
                                 );
 
                                 $newc = $userC->addClient($client1);
@@ -170,7 +170,7 @@ if (
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>ACTIVITAR</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/css/vendor.bundle.base.css">
@@ -182,7 +182,7 @@ if (
     <!-- Layout styles -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/styleL.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/logo2.png" />
   </head>
   <body>
     <div class="container-scroller">
@@ -191,48 +191,49 @@ if (
           <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
-                <h3 class="card-title text-left mb-3">Register</h3>
+                <center><h2 class="card-title text-left mb-3 text-warning">Register</h2></center>
+                <br><br>
                 <form id="registrationForm" method="post" action="" enctype="multipart/form-data">
                   
                   <div class="form-group">                  
-                    <label for="firstName">Prénom:</label>
-                    <input type="text" id="firstName" class="form-control p_input" name="firstName">
+                    <label for="firstName" class="text-info">Prénom:</label>
+                    <input type="text" id="firstName"  class="form-control p_input text-light" name="firstName">
                     <span class="error-message" id="firstNameError"></span>
                   </div>
 
                   <div class="form-group">
                   
-                    <label for="lastName">Nom:</label>
-                    <input type="text" id="lastName" class="form-control p_input" name="lastName">
+                    <label for="lastName"  class="text-info">Nom:</label>
+                    <input type="text" id="lastName"  class="form-control p_input text-light" name="lastName">
                      <span class="error-message" id="lastNameError"></span>
                   </div>
 
                   <div class="form-group"> 
-                    <label for="email">Adresse e-mail:</label>
-                    <input type="text" id="email" class="form-control p_input" name="email">
+                    <label for="email"  class="text-info">Adresse e-mail:</label>
+                    <input type="text" id="email"  class="form-control p_input text-light" name="email">
                     <span class="error-message" id="emailError" ><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></span>
                   </div>
                   <div class="form-group"> 
-                  <label for="phone">Numéro de téléphone:</label>
-                  <input type="text" id="phone" class="form-control p_input" name="phone">
+                  <label for="phone"  class="text-info">Numéro de téléphone:</label>
+                  <input type="text" id="phone"  class="form-control p_input text-light" name="phone">
                   <span class="error-message" id="phoneError"></span>
                   </div>
                   <div class="form-group"> 
-                  <label for="pdp">Photo de profil:</label>
-                  <input type="file" id="pdp" class="form-control p_input" name="pdp" accept="image/*">
+                  <label for="pdp"  class="text-info">Photo de profil:</label>
+                  <input type="file" id="pdp"  class="form-control p_input text-light" name="pdp" accept="image/*">
                   <span class="error-message" id="pdpError" ><?php echo isset($errors['pdp']) ? $errors['pdp'] : ''; ?></span>
                   </div>
                   
-                  <div class="form-group"> 
-                  <label for="password">Mot de passe:</label>
-                  <input type="password" id="password" class="form-control p_input" name="password">
+                  <div class="form-group" > 
+                  <label for="password"  class="text-info">Mot de passe:</label>
+                  <input type="password" id="password"  class="form-control p_input text-light" name="password">
                    <span class="error-message" id="passwordError"></span>
                   </div>
                  
                   
                   <div class="form-group">                    
-                <label for="confirmPassword">Confirmer le mot de passe:</label>
-                <input type="password" id="confirmPassword" class="form-control p_input" name="confirmPassword">
+                <label for="confirmPassword"  class="text-info">Confirmer le mot de passe:</label>
+                <input type="password" id="confirmPassword" class="form-control p_input text-light" name="confirmPassword">
                 <span class="error-message" id="confirmPasswordError"> </span>
                   </div>
 
@@ -245,9 +246,10 @@ if (
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn">Submit</button>
                   </div>
+                  <p class="terms">By creating an account you are accepting our<a href="terms.html"> Terms & Conditions</a></p>
                  
                  
-                  <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
+                  
                 </form>
               </div>
             </div>

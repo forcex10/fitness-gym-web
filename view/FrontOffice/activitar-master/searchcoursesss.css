@@ -1,0 +1,283 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light gray background */
+    margin: 0;
+    padding: 0;
+    color: #f8f3f3;
+    background-image: url('price-bg.jpg');
+    
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+h1 {
+    color: #fbfbfb; /* Black color for h1 */
+    text-align: center;
+    margin-top: 30px;
+}
+
+h2 {
+    color: #3498db; /* Blue color for h2 */
+    text-align: center;
+    margin-top: 30px;
+}
+
+p, label {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #f4f1f1;
+}
+
+p.intro {
+    color: #000; /* Black color for the specified paragraph */
+    font-size: 50px; /* Larger font size */
+}
+
+
+
+
+
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #db3434; /* Blue border color */
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #ecf0f1;
+    color: #0f0b0b;
+    transition: border-color 0.3s ease;
+}
+
+select:hover, select:focus {
+    border-color: #753535; /* Darker blue on hover/focus */
+}
+
+input[type="submit"] {
+    background-color: #b60909; /* Blue color for the submit button */
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.custom-h2 {
+color :#000406
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+}
+
+th {
+    background-color: #ed0e0e; /* Blue color for table header */
+    color: #fff;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.custom-option {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+       
+        margin-bottom: 5px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s;
+    }
+
+    .custom-option:hover {
+        background-color: #e0e0e0;
+    }
+
+    .custom-option span {
+        margin-bottom: 5px;
+    }
+
+    .custom-option .label {
+        font-weight: bold;
+        color: #3498db;
+        font-size: 14px;
+    }
+
+    .custom-option .value {
+        color: #151414;
+        font-size: 16px;
+    }
+
+    .custom-option .separator {
+        color: #171515;
+    }
+    .product-image {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #000406;
+        border-radius: 5px;
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.3s ease-in-out; /* Added transition for a smooth effect */
+    }
+/* Add this to the existing CSS file */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+
+
+.custom-card:hover {
+    transform: scale(1.1);
+}
+
+.custom-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.custom-card h3 {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.custom-card-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    transition: background-color 0.3s;
+}
+
+
+
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s;
+    transform: scale(1.1);
+}
+
+.product-image:hover {
+    transform: scale(1.1);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.custom-card {
+    width: 250px;
+    margin-bottom: 20px;
+    background-color: rgb(244, 245, 247); /* Transparent background */
+    border: 2px solid rgb(253, 251, 251); /* Transparent border */
+    
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(139, 54, 54, 0.919); /* Transparent shadow */
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s; 
+}
+
+.custom-card:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, #990a08, #f6735e);
+}
+
+
+
+
+.custom-card-link:hover {
+    background-color: #2980b9;
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+
+
+
+.custom-form input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px; /* ou toute autre largeur souhaitée pour le "bouton" */
+    height: 20px; /* ou toute autre hauteur souhaitée pour le "bouton" */
+    border: 2px solid #555; /* ou toute autre couleur de bordure souhaitée */
+    border-radius: 50%; /* pour rendre un "bouton" circulaire */
+    outline: none; /* supprime le contour par défaut sur la sélection */
+    cursor: pointer;
+}
+
+.custom-form input[type="radio"]:checked {
+    background-color: #555; /* ou toute autre couleur souhaitée pour l'état sélectionné */
+    border: 2px solid #555; /* assure la cohérence de la bordure lorsque sélectionné */
+}
+.custom-form input[type="radio"] {
+    display: none;
+}
+
+.gallery-controls ul li.active {
+    color: red; /* Couleur du texte rouge */
+    /* Ajoutez d'autres styles nécessaires pour indiquer l'élément actif */
+}
+
+.custom-submit {
+    margin: 80px;
+    padding: 15px 30px; /* Adjust padding as needed */
+    border: 2px solid #000; /* Border color and size */
+    border-radius: 8px; /* Adjust border-radius as needed */
+    width: 200px; /* Adjust the width as needed */
+}

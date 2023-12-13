@@ -34,7 +34,7 @@ if($user!=NULL){
             $_SESSION['pdp']=$user['pdp'];
             $_SESSION['type']=$user['typee'];
             if($user['typee']=="clientV"){
-            header('Location:activitar-master/index.html');}
+            header('Location:activitar-master/index.php');}
             else if($user['typee']=="client"){
               $errors['verif'] = 'verifiez votre compte.';
             }
@@ -64,7 +64,7 @@ if($user!=NULL){
     $_SESSION['pdp']=$user['pdp'];
     
     if($user['typee']=="clientV"){
-      header('Location:activitar-master/index.html');}
+      header('Location:activitar-master/index.php');}
       else if($user['typee']=="client"){
         $errors['verif'] = 'verifiez votre compte.';
       }
@@ -94,7 +94,7 @@ if($user!=NULL){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>ACTIVITAR</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/css/vendor.bundle.base.css">
@@ -106,7 +106,7 @@ if($user!=NULL){
     <!-- Layout styles -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/style1R.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/logo2.png" />
   </head>
   <body>
     <div class="container-scroller">
@@ -116,20 +116,20 @@ if($user!=NULL){
             <div class="card col-lg-4 mx-auto">
               <div class="card-body px-5 py-5">
               <p style="color: green"><?php echo isset($errors['verif']) ? $errors['verif'] : '';?></p>
-                <h3 class="card-title text-left mb-3">Login</h3>
+                <center><h2 class="card-title text-left mb-3 text-warning">Login</h2></center>
                 <form  action="" method="post">
 
                   <div class="form-group">
                  
 
-                    <label>email *</label>
-                    <input type="text" class="form-control p_input" placeholder=" Email" name="email" id="email" value= "<?php echo isset($_COOKIE['email']) ? $_COOKIE['email'] : ''; ?>">
+                    <label class="text-info">email :</label>
+                    <input type="text" class="form-control p_input text-light" placeholder=" Email" name="email" id="email" value= "<?php echo isset($_COOKIE['email']) ? $_COOKIE['email'] : ''; ?>">
                     <span><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></span> 
                   </div>
 
                   <div class="form-group">
-                    <label>Password *</label>
-                    <input type="password" class="form-control p_input" placeholder="Password" name="password" id="password" value= "<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
+                    <label class="text-info">Password :</label>
+                    <input type="password" class="form-control p_input text-light" placeholder="Password" name="password" id="password" value= "<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
                     <span id="erreur"><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></span>
                   </div>
 
@@ -144,13 +144,7 @@ if($user!=NULL){
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn" name="recup">Login</button>
                   </div>
-                  <div class="d-flex">
-                    <button class="btn btn-facebook me-2 col">
-                      <i class="mdi mdi-facebook"></i> Facebook </button>
-                    <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&response_type=code&redirect_uri=<?= urlencode('http://localhost/fitness-gym-web/view/FrontOffice/google.php'); ?>&client_id= '208090102666-tu5qsjqvnfcuktkk0od63ca49ju8s9n9.apps.googleusercontent.com'">
-                                  <!-- <button class="btn btn-google col"> -->
-                      <i class="mdi mdi-google-plus"></i> Google plus </a>
-                  </div>
+                 
                   <p class="sign-up">Don't have an Account?<a href="register.php"> Sign Up</a></p>
                 </form>
               </div>

@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="zxx">
+    
 
 <head>
+    <style>
+        .c-btn {
+        padding: 15px 30px;
+        float: right; /* Utilisez float pour déplacer le bouton à droite /
+        / Ajoutez d'autres styles selon vos besoins */
+    }
+
+    </style>
     <meta charset="UTF-8">
     <meta name="description" content="Activitar Template">
     <meta name="keywords" content="Activitar, unica, creative, html">
@@ -49,17 +58,13 @@
                 <div class="nav-menu">
                     <nav class="mainmenu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="./index.php">Home</a></li>
                             <li><a href="./about-us.html">About us</a></li>
                             <li><a href="./schedule.html">Schedule</a></li>
-                            <li><a href="./gallery.html">Gallery</a></li>
-                            <li><a href="./blog.html">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about-us.html">About Us</a></li>
-                                    <li><a href="./blog-single.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li class="active"><a href="./contact.html">Contacts</a></li>
+                            <li ><a href="./gallery.php">Produits</a></li>
+                            <li class="active"><a href="./forum.php">Forum</a></li>
+                            <li><a href="./contact.html">Contacts</a></li>
+                            <li><a href="./searchCours.php">Cours</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -109,37 +114,17 @@
                 <div class="col-lg-8 offset-lg-1">
                     <div class="contact-form">
                         <h4>Get in touch</h4>
-                        <form action="#">
+                        <form action="contact.php"  method="POST">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Name">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Email">
-                                </div>
+                                
                                 <div class="col-lg-12">
-                                    <textarea placeholder="Message"></textarea>
-                                    <button type="submit" class="c-btn">Send Message</button>
+                                    <input type="text" placeholder="Message" name="message" id="message" oninput="validerDescription()">
+                                    <span id="erreurmessage" class="erreurtype" style="color: red"></span>
+                                    <button type="submit" name="send" class="c-btn" id="send">Send Message</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Contact Section End -->
-
-    <!-- Cta Section Begin -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="cta-text">
-                        <h3>GeT Started Today</h3>
-                        <p>New student special! $30 unlimited Gym for the first week anh 50% of our member!</p>
-                    </div>
-                    <a href="#" class="primary-btn cta-btn">book now</a>
                 </div>
             </div>
         </div>
@@ -246,6 +231,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/masonry.pkgd.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="contact.js"></script>
 </body>
 
 </html>

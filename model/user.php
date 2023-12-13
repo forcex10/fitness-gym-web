@@ -8,8 +8,8 @@ if (!class_exists('User')) {
         private $tel=null;
         private $password=null;
         private $type=null;
-        private $diplome=null;
-        private $projetRc=null;
+
+   
         private $pdp=null;
         
         function getId(){
@@ -37,12 +37,8 @@ if (!class_exists('User')) {
         function getType(){
             return($this->type);
         }
-        function getDiplome(){
-            return($this->diplome);
-        }
-        function getProjetRc(){
-            return($this->projetRc);
-        }
+
+   
         function getPdp(){
             return($this->pdp);
         }
@@ -74,12 +70,7 @@ if (!class_exists('User')) {
             $this->type=$type;
         }
         
-        function setDiplome($diplome){
-            $this->diplome=$diplome;
-        }
-        function setProjet($projetRc){
-            $this->projetRc=$projetRc;
-        }
+       
         function setPdp($pdp){
             $this->pdp=$pdp;
         }
@@ -90,7 +81,7 @@ if (!class_exists('User')) {
         
         
         
-        function __construct($nom,$prenom,$email,$tel,$idjoueur,$password,$type,$pdp,$diplome,$projetRc){
+        function __construct($nom,$prenom,$email,$tel,$idjoueur,$password,$type,$pdp){
             $this->idjoueur=$idjoueur;
             $this->nom=$nom;
             $this->prenom=$prenom;
@@ -98,8 +89,7 @@ if (!class_exists('User')) {
             $this->email=$email;
             $this->password=$password;
             $this->type=$type;
-            $this->diplome=$diplome;
-            $this->ProjetRc=$projetRc;
+        
             $this->pdp=$pdp;
           
         

@@ -34,15 +34,14 @@ if (
             null,
             $_POST['password'],
             null,
-            null,
-            null,
             null
+
             
         );
        
-        var_dump($user);
+       
         $userC->updateUser($user, $_SESSION['id']);
-        var_dump($user);
+       
 
         header('Location:listUser.php');
     } else
@@ -77,10 +76,12 @@ if (
 
 
 <html lang="en"><head>
+<head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Corona Admin</title>
+  <title>ACTIVITAR</title>
+
   <!-- plugins:css -->
   <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -96,11 +97,9 @@ if (
   <!-- Layout styles -->
   <link rel="stylesheet" href="assets/css/style.css">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="assets/images/favicon.png">
-<style type="text/css" id="operaUserStyle"></style><style type="text/css">/* Chart.js */
-@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style><style type="text/css">/* Chart.js */
-@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style><style type="text/css">/* Chart.js */
-@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+  <link rel="shortcut icon" href="assets/images/logo2.png">
+</head>
+
 <body class="">
   <div class="container-scroller">
     <div class="row p-0 m-0 proBanner d-none d-flex" id="proBanner">
@@ -124,11 +123,11 @@ if (
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo"></a>
-        <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo"></a>
+      <a class="sidebar-brand brand-logo text-light " ><strong>ACTIVITAR</strong></a>
+        <a class="sidebar-brand brand-logo1" href="listeUser.php"><img src="assets/images/logo2.png" alt="logo"></a>
       </div>
       <ul class="nav">
-        <li class="nav-item profile">
+      <li class="nav-item profile">
           <div class="profile-desc">
             <div class="profile-pic">
               <div class="count-indicator">
@@ -138,10 +137,11 @@ if (
               <div class="profile-name">
                 <h5 class="mb-0 font-weight-normal"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></h5>
                 <span>Gold Member</span>
+              </div>
             </div>
             <a href="#" id="profile-dropdown" data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
             <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-              <a href="#" class="dropdown-item preview-item">
+              <a href="profileAdmin.php" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-dark rounded-circle">
                     <i class="mdi mdi-settings text-primary"></i>
@@ -152,7 +152,7 @@ if (
                 </div>
               </a>
               <div class="dropdown-divider"></div>
-              
+             
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -170,8 +170,8 @@ if (
         <li class="nav-item nav-category">
           <span class="nav-link">Navigation</span>
         </li>
-        <li class="nav-item menu-items ">
-          <a href="listUser.php" class="nav-link" href="listUser.html">
+        <li class="nav-item menu-items active">
+          <a class="nav-link" href="listUser.php">
             <span class="menu-icon">
               <i class="mdi mdi-speedometer"></i>
             </span>
@@ -179,7 +179,7 @@ if (
           </a>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
+          <a class="nav-link collapsed" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-icon">
               <i class="mdi mdi-laptop"></i>
             </span>
@@ -187,25 +187,26 @@ if (
 </span>
             <i class="menu-arrow"></i>
           </a>
-          <div class="collapse " id="ui-basic" style="">
+          <div class="collapse" id="ui-basic" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Cours</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Categorie Cours</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listcouri.php">Cours</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listtypecouri.php">Categorie Cours</a></li>
               
             </ul>
           </div>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link collapsed" data-bs-toggle="collapse" href="#abonnement" aria-expanded="false">                
+          <a class="nav-link" data-bs-toggle="collapse" href="#abonnement" aria-expanded="true">                
             <span class="menu-icon">
               <i class="mdi mdi-playlist-play"></i>
             </span>
             <span class="menu-title">Gestion <br> Abonnements</span>
    <i class="menu-arrow"></i>
           </a>
-          <div class="collapse" id="abonnement" style="">
+          <div class="collapse " id="abonnement" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Abonnements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeAbonnement.php">Abonnements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeTypeAbonnement.php">Gestion <br> Type Abonnements</a></li>
           
         </ul></div></li>
         <li class="nav-item menu-items">
@@ -218,15 +219,11 @@ if (
           </a>
           <div class="collapse" id="produit" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Produits</a></li>
-          
-        </ul></div>
-<div class="collapse" id="produit" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Types Produits</a></li>
-          
+              <li class="nav-item"> <a class="nav-link" href="produit.php">Produits</a></li>
+              <li class="nav-item"> <a class="nav-link" href="tabletype.php">Types Produits</a></li>
+                  
         </ul></div></li>
-        
+         
         <li class="nav-item menu-items">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#evennement" aria-expanded="false">                
            <span class="menu-icon">
@@ -237,14 +234,14 @@ if (
           </a>
           <div class="collapse" id="evennement" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Evennements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeEvent.php">Evennements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeType_event.php">Type Evennements</a></li>
           
-        </ul></div>
-<div class="collapse" id="evennement" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Type Evennements</a></li>
+ 
+</ul>
+              
           
-        </ul></div></li>
+</div></li>
         
         <li class="nav-item menu-items">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#forum" aria-expanded="false">                
@@ -256,15 +253,28 @@ if (
           </a>
           <div class="collapse" id="forum" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Posts</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listPost.php">Posts</a></li>
           
         </ul></div>
 <div class="collapse" id="forum" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Commentaires</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listCom.php">Commentaires</a></li>
           
         </ul></div></li>
-        <li class="nav-item menu-items active">
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-bs-toggle="collapse" href="#commande" aria-expanded="true">
+            <span class="menu-icon">
+              <i class="mdi mdi-playlist-play"></i>
+            </span>
+            <span class="menu-title">Gestion <br> Commande</span>
+              <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="commande" style="">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="listeCommande.php">Commande</a></li>
+        </ul></div>
+      </li>
+        <li class="nav-item menu-items">
           <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
             <span class="menu-icon">
               <i class="mdi mdi-security"></i>
@@ -272,11 +282,11 @@ if (
             <span class="menu-title">User Pages</span>
             <i class="menu-arrow"></i>
           </a>
-          <div class="collapse show" id="auth">
+          <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item "> <a class="nav-link" href="GestionUser.php"> clients </a></li>
+              <li class="nav-item"> <a class="nav-link" href="GestionUser.php"> clients </a></li>
               <li class="nav-item"> <a class="nav-link" href="listAdmin.php"> admins </a></li>
-              <li class="nav-item"> <a class="nav-link" href="../../registerAdmin"> ajouter admin </a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../../FrontOffice/registerAdmin.php"> ajouter admin </a></li>
               <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
               <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li> -->
             </ul>
@@ -300,19 +310,21 @@ if (
             
             
             
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              
+          <li class="nav-item dropdown">
+            <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="navbar-profile">
-                <img class="img-xs rounded-circle" src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
-                  <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?> </p>
+                  <img class="img-xs rounded-circle" src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
+                  <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
+           
+              
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-     
+         
                 <div class="dropdown-divider"></div>
                 <a href="../../../FrontOffice/logout.php" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
@@ -324,7 +336,8 @@ if (
                     <p class="preview-subject mb-1">Log out</p>
                   </div>
                 </a>
-      
+                <div class="dropdown-divider"></div>
+                <p class="p-3 mb-0 text-center">Advanced settings</p>
               </div>
             </li>
           </ul>
@@ -336,70 +349,70 @@ if (
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
+        
+          <center>
         <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                    <h4 align="center" class="card-title">Profile</h4>
-                    <p class="card-description"> Values : </p>
+                    <h2 align="center" class="card-title text-warning">Profile</h2>
+                   
                     <form class="forms-sample" method="post" id="updateForm" action="">
                       <div class="form-group row">
-                        <label for="id_client" class="col-sm-3 col-form-label">ID</label>
+                        <label for="id_client" class="col-sm-3 col-form-label text-info">ID :</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="id_client" name="id_client" value="<?php echo $_SESSION['id'] ?>" >
+                          <input type="text" class="form-control text-light" id="id_client" name="id_client" value="<?php echo $_SESSION['id'] ?>" >
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="nom" class="col-sm-3 col-form-label">Nom :</label>
+                        <label for="nom" class="col-sm-3 col-form-label text-info">Nom :</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $user['nom'] ?>" />
+                        <input type="text" class="form-control text-light"  id="nom" name="nom" value="<?php echo $user['nom'] ?>" />
                         <span class="error-message" id="erreurNom" style="color: red"></span>
                           
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="prenom" class="col-sm-3 col-form-label">prenom</label>
+                        <label for="prenom" class="col-sm-3 col-form-label text-info">Prenom :</label>
                         <div class="col-sm-9">
-                        <input type="text" id="prenom"  class="form-control" name="prenom" value="<?php echo $user['prenom'] ?>" />
+                        <input type="text" id="prenom"  class="form-control text-light"  name="prenom" value="<?php echo $user['prenom'] ?>" />
                         <span class="error-message" id="erreurPrenom" style="color: red"></span>
                          
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="email" class="col-sm-3 col-form-label">email : </label>
+                        <label for="email"  class="col-sm-3 col-form-label text-info">Email : </label>
                         <div class="col-sm-9">
-                        <input type="text" id="email" class="form-control" name="email" value="<?php echo $user['email'] ?>" />
+                        <input type="text" id="email" class="form-control text-light"  name="email" value="<?php echo $user['email'] ?>" />
                         <span class="error-message" id="erreurEmail" style="color: red"></span>
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="telephone" class="col-sm-3 col-form-label">Mobile</label>
+                        <label for="telephone"  class="col-sm-3 col-form-label text-info">Mobile :</label>
                         <div class="col-sm-9">
-                        <input type="text" id="telephone" name="tel" value="<?php echo $user['tel'] ?>" />
+                        <input type="text" class="form-control text-light"  id="telephone" name="tel" value="<?php echo $user['tel'] ?>" />
                         <span class="error-message" id="erreurTelephone" style="color: red"></span>
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <label for="password"  class="col-sm-3 col-form-label text-info">Password :</label>
                         <div class="col-sm-9">
-                        <input type="password" id="password" name="password" value="<?php echo $_SESSION['password'] ?>">
+                        <input type="password" class="form-control text-light"  id="password" name="password" value="<?php echo $_SESSION['password'] ?>">
                         <span class="error-message" id="erreurPassword" class="text-danger"></span>
                         </div>
                       </div>
 
-                      <div class="form-check form-check-flat form-check-primary">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input"> Remember me </label>
-                      </div>
+                      
                       <button type="submit" class="btn btn-primary me-2">Submit</button>
                       <button class="btn btn-dark">Cancel</button>
                     </form>
                   </div>
                 </div>
               </div>
+    </center>
              </div>
 </div>
 

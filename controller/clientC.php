@@ -1,30 +1,9 @@
 <?php
 include "C:/xampp/htdocs/fitness-gym-web/model/user.php";
+require_once(__DIR__ . '/../config.php');
 
-class config
-{
-private static $pdo = null;
-public static function getConnexion()
-{
-if (!isset(self::$pdo)) {
-try {
-self::$pdo = new PDO(
-'mysql:host=localhost;dbname=fitness_gym',
-'root',
-'',
-[
-PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]
-);
-//echo "connected successfully";
-} catch (Exception $e) {
-die('Erreur: ' . $e->getMessage());
-}
-}
-return self::$pdo;
-}
-}
+
+
 
 
 
@@ -63,7 +42,7 @@ die('Error:' . $e->getMessage());
 function addClient($client)
 {
     $sql = "INSERT INTO client
-            VALUES (NULL, :nom, :prenom, :email, :tel, :passworde,  :typee,  :diplome, :projetRc, :pdp)";
+            VALUES (NULL, :nom, :prenom, :email, :tel, :passworde,  :typee,  :pdp)";
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
@@ -75,8 +54,7 @@ function addClient($client)
             'passworde' => $client->getPassword(),
            
             'typee' => $client->getType(),
-            'diplome' => $client->getDiplome(),
-            'projetRc' => $client->getProjetRc(),
+  
             'pdp' => $client->getPdp(),
         ]);
     } catch (Exception $e) {
@@ -199,7 +177,37 @@ function password($username, $password)
     }
 }
 
+function retournerIMGID($id)
+    {
+        $sql = "SELECT pdp from client where id_client = $id";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $abonnement = $query->fetch();
+            return $abonnement;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+
+    function retournerIMG($email)
+    {
+        $sql = "SELECT pdp from client where email = $email";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $abonnement = $query->fetch();
+            return $abonnement;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
 }
+
 
 
 

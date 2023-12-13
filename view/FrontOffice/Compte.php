@@ -40,9 +40,8 @@ if (
             null,
             $_POST['password'],
             null,
-            null,
-            null,
             null
+            
         );
 
         $userC->updateUser($user, $id);
@@ -63,7 +62,7 @@ if (isset($id)) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>ACTIVITAR</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/vendors/css/vendor.bundle.base.css">
@@ -75,7 +74,7 @@ if (isset($id)) {
     <!-- Layout styles -->
     <link rel="stylesheet" href="../BackOffice/Backoffice/template/assets/css/style1.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="../BackOffice/Backoffice/template/assets/images/logo2.png" />
   </head>
   <body>
     <div class="container-scroller">
@@ -83,7 +82,7 @@ if (isset($id)) {
         <div class="row w-100 m-0">
           <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
             <div class="card col-lg-4 mx-auto">
-            <a href="activitar-master/index.html"><button type="button" class="btn btn-danger btn-fw">Back</button></a>
+            <a href="activitar-master/index.php"><button type="button" class="btn btn-danger btn-fw">Back</button></a>
               <div class="card-body px-5 py-5">
 
              

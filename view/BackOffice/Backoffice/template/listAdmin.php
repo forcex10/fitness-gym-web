@@ -55,15 +55,15 @@ $list=$UserC->listAdmins();
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo"></a>
-        <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo"></a>
+      <a class="sidebar-brand brand-logo text-light "><strong>ACTIVITAR</strong></a>
+        <a class="sidebar-brand brand-logo2" href="listUser.php"><img src="assets/images/logo2.png" alt="logo"></a>
       </div>
       <ul class="nav">
         <li class="nav-item profile">
           <div class="profile-desc">
             <div class="profile-pic">
               <div class="count-indicator">
-              <img class="img-xs rounded-circle " src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
+                <img class="img-xs rounded-circle " src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
                 <span class="count bg-success"></span>
               </div>
               <div class="profile-name">
@@ -84,7 +84,7 @@ $list=$UserC->listAdmins();
                 </div>
               </a>
               <div class="dropdown-divider"></div>
-        
+             
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
@@ -121,8 +121,8 @@ $list=$UserC->listAdmins();
           </a>
           <div class="collapse" id="ui-basic" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Cours</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Categorie Cours</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listcouri.php">Cours</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listtypecouri.php">Categorie Cours</a></li>
               
             </ul>
           </div>
@@ -135,9 +135,10 @@ $list=$UserC->listAdmins();
             <span class="menu-title">Gestion <br> Abonnements</span>
    <i class="menu-arrow"></i>
           </a>
-          <div class="collapse show" id="abonnement" style="">
+          <div class="collapse " id="abonnement" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="ll.php">Abonnements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeAbonnement.php">Abonnements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeTypeAbonnement.php">Gestion <br> Type Abonnements</a></li>
           
         </ul></div></li>
         <li class="nav-item menu-items">
@@ -150,15 +151,11 @@ $list=$UserC->listAdmins();
           </a>
           <div class="collapse" id="produit" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Produits</a></li>
-          
-        </ul></div>
-<div class="collapse" id="produit" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Types Produits</a></li>
-          
+              <li class="nav-item"> <a class="nav-link" href="produit.php">Produits</a></li>
+              <li class="nav-item"> <a class="nav-link" href="tabletype.php">Types Produits</a></li>
+                  
         </ul></div></li>
-        
+         
         <li class="nav-item menu-items">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#evennement" aria-expanded="false">                
            <span class="menu-icon">
@@ -169,14 +166,14 @@ $list=$UserC->listAdmins();
           </a>
           <div class="collapse" id="evennement" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Evennements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeEvent.php">Evennements</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listeType_event.php">Type Evennements</a></li>
           
-        </ul></div>
-<div class="collapse" id="evennement" style="">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Type Evennements</a></li>
+ 
+</ul>
+              
           
-        </ul></div></li>
+</div></li>
         
         <li class="nav-item menu-items">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#forum" aria-expanded="false">                
@@ -188,15 +185,28 @@ $list=$UserC->listAdmins();
           </a>
           <div class="collapse" id="forum" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Posts</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listPost.php">Posts</a></li>
           
         </ul></div>
 <div class="collapse" id="forum" style="">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Commentaires</a></li>
+              <li class="nav-item"> <a class="nav-link" href="listCom.php">Commentaires</a></li>
           
         </ul></div></li>
-        <li class="nav-item menu-items active">
+        <li class="nav-item menu-items">
+          <a class="nav-link" data-bs-toggle="collapse" href="#commande" aria-expanded="true">
+            <span class="menu-icon">
+              <i class="mdi mdi-playlist-play"></i>
+            </span>
+            <span class="menu-title">Gestion <br> Commande</span>
+              <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="commande" style="">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" href="listeCommande.php">Commande</a></li>
+        </ul></div>
+      </li>
+        <li class="nav-item menu-items">
           <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
             <span class="menu-icon">
               <i class="mdi mdi-security"></i>
@@ -204,10 +214,10 @@ $list=$UserC->listAdmins();
             <span class="menu-title">User Pages</span>
             <i class="menu-arrow"></i>
           </a>
-          <div class="collapse show" id="auth">
+          <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item "> <a class="nav-link" href="GestionUser.php"> clients </a></li>
-              <li class="nav-item active"> <a class="nav-link" href="listAdmin.php"> admins </a></li>
+              <li class="nav-item"> <a class="nav-link" href="GestionUser.php"> clients </a></li>
+              <li class="nav-item"> <a class="nav-link" href="listAdmin.php"> admins </a></li>
               <li class="nav-item"> <a class="nav-link" href="../../../FrontOffice/registerAdmin.php"> ajouter admin </a></li>
               <!-- <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
               <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li> -->
@@ -232,19 +242,20 @@ $list=$UserC->listAdmins();
             
             
             
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item dropdown">
+            <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="navbar-profile">
                   <img class="img-xs rounded-circle" src="../../../FrontOffice/<?php echo $_SESSION['pdp'] ?>" alt="">
                   <p class="mb-0 d-none d-sm-block navbar-profile-name"><?php echo $_SESSION['nom']." ". $_SESSION['prenom']?></p>
                   <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </a>
+           
+              
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                 <h6 class="p-3 mb-0">Profile</h6>
                 <div class="dropdown-divider"></div>
-             
+         
                 <div class="dropdown-divider"></div>
                 <a href="../../../FrontOffice/logout.php" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
@@ -256,7 +267,8 @@ $list=$UserC->listAdmins();
                     <p class="preview-subject mb-1">Log out</p>
                   </div>
                 </a>
-                
+                <div class="dropdown-divider"></div>
+                <p class="p-3 mb-0 text-center">Advanced settings</p>
               </div>
             </li>
           </ul>
@@ -273,21 +285,21 @@ $list=$UserC->listAdmins();
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Order Status</h4>
+                <center><h2 class="text-warning">Liste Admins</h2></center>
                   <div class="table-responsive">
-                    <table class="table">
+                  <table  class="table table-hover">
                       <thead>
+                        <br><br>
+                        <br><br>
                         <tr>
                          
-                          <th>ID</th>
-                          <th> Client Name </th>
-                          <th> Email </th>
-                          <th> Téléphone</th>
-                          <th> Type d'utilisateur </th>
-                          <th> Diplôme </th>
-                          <th> Projet récent </th>
-                          <th> Update</th>
-                          <th> Delete</th>
+                          <th class="text-info">ID</th>
+                          <th class="text-info"> Client Name </th>
+                          <th class="text-info"> Email </th>
+                          <th class="text-info"> Téléphone</th>
+                          <th class="text-info"> Type d'utilisateur </th>
+                          <th class="text-info"> Update</th>
+                          <th class="text-info"> Delete</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -296,17 +308,16 @@ $list=$UserC->listAdmins();
             foreach($list as $j) {
         ?>
             <tr>
-                <td><?php echo $j['id_client'] ?></td>
-                <td><img src="../../../FrontOffice/<?php echo $j['pdp'] ?>" alt="photo d'utilisateur" style="max-width: 100px; max-height: 100px;">
-                <span><?php echo $j['nom']?></span>
-                <span><?php echo $j['prenom']?></span>
+                <td class="text-light"><?php echo $j['id_client'] ?></td>
+                <td ><img src="../../../FrontOffice/<?php echo $j['pdp'] ?>" alt="photo d'utilisateur" style="max-width: 100px; max-height: 100px;">
+                <span class="text-light"><?php echo $j['nom']?></span>
+                <span class="text-light"><?php echo $j['prenom']?></span>
                 
               </td>
-                <td><?php echo $j['email']?></td>
-                <td><?php echo $j['tel']?></td>
-                <td><?php echo $j['typee']?></td>
-                <td><?php echo $j['diplome']?></td>
-                <td><?php echo $j['projetRc']?></td>
+                <td class="text-light"><?php echo $j['email']?></td>
+                <td class="text-light"><?php echo $j['tel']?></td>
+                <td class="text-light"><?php echo $j['typee']?></td>
+            
                 <td>
                   
                     <form method="POST" action="Update.php">
